@@ -1,0 +1,196 @@
+/* RESET ========================== */
+html,body{margin:0; height:100%;}
+ul,li{list-style: none;margin: 0;padding:0;}
+
+
+/* MENU */
+#left-menu{
+    float:left;
+    width:150px;
+    box-shadow:2px 2px 5px -2px;
+    height:100%;
+    background:#3498db;
+}
+
+/* CONTEUDO */
+#right-conteudo{
+    float:left;
+    width:1000px;
+    box-shadow:2px 2px 5px -2px;
+    border:1px solid #DEDEDE;
+    height:500px;
+    margin-left: 20px;
+    margin-top: 50px;
+    background: #ecf0f1;
+}
+
+/* MECHENDO UL DO MENU */
+#left-menu ul{
+    margin-top: 50px
+}
+
+/* MECHENDO COM A LI DO MENU */
+#left-menu ul li{
+    padding: 5px 0px 5px 0px;
+    text-align: left;
+    text-indent: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor:pointer;
+    color:#FFF;
+    background:#3498db;
+    transition:0.5;
+}
+
+/* CHAMANDO UM HOVER DO LI DO MENU */
+#left-menu li:hover{
+    color:#3498db;
+    background:#fff;
+    transition:0.5;
+}
+
+/* IMAGEM DO LOGO DA EMPRESA QUE APARECE NO MENU */
+.img  {
+	background: url('../img/logonovo2.png');
+	background-size: 100% 100%;
+	position: relative;
+	right: -20px;
+	bottom: -10px;
+	height: 100px;
+	width: 100px;
+	border-radius: 100%;
+}
+
+/* DIV RESPONSAVEL PELO IMAGEM DE LOGO LOGO  */
+.edita-div {
+	border-radius: 50%;
+	position: relative;
+	cursor: default;
+	box-shadow: inset 0 0 0 16px rgba(255,255,255,0.6),0 1px 2px rgba(0,0,0,0.1);	
+	-webkit-transition: all 0.4s ease-in-out;
+	-moz-transition: all 0.4s ease-in-out;
+	-o-transition: all 0.4s ease-in-out;
+	-ms-transition: all 0.4s ease-in-out;
+	transition: all 0.4s ease-in-out;
+}
+
+/* HOVER DA IMAGEM DO LOGO  */
+.edita-div:hover {
+	box-shadow: 
+		inset 0 0 0 1px rgba(255,255,255,0.1),
+		0 1px 2px rgba(0,0,0,0.1);
+}
+
+/* HOVER DA IMAGEM DO LOGO  */
+.edita-div:hover .opcao-editar {
+	-webkit-transform: scale(1);
+	-moz-transform: scale(1);
+	-o-transform: scale(1);
+	-ms-transform: scale(1);
+	transform: scale(1);
+	opacity: 1;
+}
+
+	/* HOVER DA IMAGEM DO LOGO JUNTO COM O LINK QUE VAI APARECER COM A OPÇÃO EDITAR */
+.edita-div:hover .opcao-editar a {
+	opacity: 2;
+}
+
+/* LINK QUE IRA APARECER COM O HOVER DA IMAGEM DE LOGO  */
+.opcao-editar a{
+	color: #FFFFFF;
+	font-weight: bold;
+	text-decoration: none;
+	padding: 0px 35px;
+	position: relative;
+	bottom: -35px;
+	font-style: italic;
+	font-size: 14px;
+	opacity: 0;
+	-webkit-transition: all 1s ease-in-out 0.4s;
+	-moz-transition: all 1s ease-in-out 0.4s;
+	-o-transition: all 1s ease-in-out 0.4s;
+	-ms-transition: all 1s ease-in-out 0.4s;
+	transition: all 1s ease-in-out 0.4s;	
+}
+
+	/* NOME DA EMPRESA ABAIXO DO LOGO  */
+p.nome-empresa {
+	color: #fff;
+	font-size: 16px;
+	text-align: center;
+}
+	/* IMAGEM SAIR ALINHADO AO LADO SUPERIOR DIREITO DA PAGINA  */
+#sair img { 
+	float: right;
+	border-radius: 100%;
+	height: 50px;
+}
+	/* MENU */
+#left-menu li a {
+	text-decoration: none;
+}
+
+	/* CONTEUDO DA DIV  PRODUTO */
+div#produto  { 
+	background-color: #3498db;
+	margin: 0px;
+	padding: 0px;
+	width: 1000px;
+	height: 40px;
+}
+
+	/* LI DA DIV PRODUTO  */
+#produto li {
+	list-style-type: none;
+	padding-bottom: 15px;
+	font-size: 15pt;
+	font-family: Verdana;
+	margin: 50px;
+	color: white;
+	border: 1px solid #3498db;
+	cursor: pointer;
+	display: inline;
+	
+}
+
+	/* HOVER DA LI DIV PRODUTO  */
+#produto li:hover {
+	background-color: #2980b9;
+}
+
+	/* CONTEUDO DA DA DIV FORNECEDORES*/
+div#estatisticas  { 
+	background-color: #3498db;
+	margin: 0px;
+	padding: 0px;
+	width: 1000px;
+	height: 40px;
+}
+
+	/* LI DIV FORNECEDORES */	
+#estatisticas li {
+	list-style-type: none;
+	font-size: 15pt;
+	font-family: Verdana;
+	padding-bottom: 15px;
+	margin: 50px;
+	color: #FFFFFF;
+	border: 1px solid #3498db;
+	cursor: pointer;
+	display: inline;
+}
+
+	/* HOVER LI DIV FORNECEDORES */
+#estatisticas li:hover {
+	background-color: #2980b9;
+}
+
+	/* FOTO VOLTAR QUE APARECE NA SECTION RIGHT-CONTEUDO */
+.foto-voltar {
+	height: 50px;
+	float: right;
+	cursor: pointer;
+	position: relative;
+	bottom: -35px;
+}
