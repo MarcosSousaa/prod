@@ -18,9 +18,9 @@ ul,li{list-style: none;margin: 0;padding:0;}
     width:1000px;
     box-shadow:2px 2px 5px -2px;
     border:1px solid #DEDEDE;
-    height:500px;
+    height:550px;
     margin-left: 20px;
-    margin-top: 50px;
+    margin-top: 20px;
     background: #ecf0f1;
 }
 
@@ -133,7 +133,7 @@ p.nome-empresa {
 
 	/* CONTEUDO DA DIV  PRODUTO */
 div#produto  { 
-	background-color: #3498db;
+	
 	margin: 0px;
 	padding: 0px;
 	width: 1000px;

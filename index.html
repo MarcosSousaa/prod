@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Controle de Produção | Ind Bandeirante de Plásticos</title>
+        <link rel="stylesheet" href="css/estilo.css">
+        <link rel="stylesheet" href="css/materialize.min.css">
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">        
+    </head>    
+    <body>
+        <div id="sair">
+            <img src="img/sair.png" class="foto-sair" />
+        </div>
+	<section id="left-menu"> <!-- SECTION MENU -->
+                <div class="img edita-div"> <!-- LOGO -->
+                    <div class="opcao-editar">
+                        
+                    </div>
+		</div>
+		<p class="nome-empresa">Ind Bandeirante</p> <!-- NOME DA EMPRESA -->
+		<!-- AKI COMEÇA O MENU -->
+		<ul>					
+                    <li><span class="produt">INSERIR DADOS PRODUÇÃO</span></li>
+                    <li><span class="estatic">ESTATISTICAS</span></li>
+		</ul>
+		<!-- FIM DO MENU -->
+	</section> <!-- FIM DA SECTION MENU -->
+
+	<!-- SECTION CONTEUDO -->
+	<section id="right-conteudo">
+            <img src="img/voltar.png" class="foto-voltar"> <!-- IMG QUE VOLTA APARECE EM TODOS OS CAMPOS -->
+            <!-- AQUI COMEÇA O CONTEUDO DO PRODUTOO -->
+            <div id="produto">                 
+                <div class="row"></div>
+                
+                <div class="row">
+                    <div class="input-field col s4">
+                        <input id="data" type="text" class="validate"> 
+                        <label for="data">Data Produção</label>
+                    </div>
+                    
+                    <div class="input-field col s6">
+                        <select id="ext" name="ext" class="validate">
+                            <option value="" disabled selected>Selecione a Extrusora</option>
+                            <option value="01">Extrusora 01</option>
+                            <option value="02">Extrusora 02</option>
+                            <option value="03">Extrusora 03</option>
+                            <option value="04">Extrusora 04</option>
+                            <option value="05">Extrusora 05</option>
+                        </select>
+                        <label>Extrusora</label>
+                    </div>
+                    
+                     <div class="input-field col s6">
+                        <select>
+                            <option value="" disabled selected>Selecione o Turno</option>
+                            <option value="manha">Manhã</option>
+                            <option value="tarde">Tarde</option>
+                            <option value="noite">Noite</option>                            
+                        </select>
+                        <label>Turno</label>
+                    </div>
+                    
+                    <div class="input-field col s4">
+                        <input id="operador" type="text" class="validate" data-length="20">
+                        <label for="operador">Operador</label>
+                    </div>
+                    
+                    <div class="input-field col s4">
+                        <input id="producao" type="text" class="validate" data-length="20">
+                        <label for="producao">Produção KG</label>
+                    </div>
+                    
+                    <div class="input-field col s4">
+                        <input id="apara" type="text" class="validate" data-length="20">
+                        <label for="apara">Apara</label>
+                    </div>
+                    
+                    <div class="input-field col s4">
+                        <input id="refile" type="text" class="validate" data-length="20">
+                        <label for="refile">Refile</label>
+                    </div>
+                    
+                    <div class="input-field col s4">
+                        <input id="borra" type="text" class="validate" data-length="20">
+                        <label for="borra">Borra</label>
+                    </div>
+                    
+                    <div class="input-field col s4">
+                        <input id="qtd_paradas" type="text" class="validate" data-length="20">
+                        <label for="qtd_paradas">Quantidade Paradas</label>
+                    </div>
+                    
+                    <div class="input-field col s4">
+                        <input id="minutos_paradas" type="text" class="validate" data-length="20">
+                        <label for="minutos_paradas">Minutos Paradas</label>
+                    </div>
+                    
+                    <div class="input-field col s12">
+                        <select multiple id="oc">
+                            <option value="" disabled selected>Escolha a Ocorrencia</option>
+                            <option value="LB">LB</option>
+                            <option value="BFG">BFG</option>
+                            <option value="LM">LM</option>
+                            <option value="PM">PM</option>
+                            <option value="AC">AC</option>
+                            <option value="LM">LG</option>
+                        </select>
+                        <label>OC</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <button id="inserir" class="btn waves-effect waves-light right" type="submit" name="action">Inserir
+                        <i class="material-icons right">send</i>                        
+                    </button>  
+                </div>
+            </div>
+            <!-- AQUI TERMINA O CONTEUDO DO PRODUTO -->
+            <!-- AQUI COMEÇA O CONTEUDO DO FORNECEDORES -->
+            <div id="estatisticas">
+                <ul>
+                    <li>Adicionar</li>
+                    <li>Editar</li>
+                    <li>Remover</li> <br/><br>
+                </ul>
+            <!-- AQUI TERMINA O CONTEUDO DO FORNECEDORES -->
+            </div>            
+	</section>
+	<!-- FIM DA  SECTION CONTEUDO -->
+        <script src="js/jquery.min.js"></script>
+	<script src="js/jquery.ui.min.js"></script>
+	<script src="js/index.js"></script>
+        <script src="js/materialize.min.js"></script>
+        <script type="text/javascript" src="js/jquery.maskedinput.min.js"></script>
+        <!--<script src="js/materialize.js"></script> -->
+    </body>
+        
+</html>
