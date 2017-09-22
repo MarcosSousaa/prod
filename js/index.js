@@ -99,12 +99,6 @@ $(document).ready(function(){
             
         }
     });
-    function lista(){
-        var item = new object();        
-        item.acao = 0;        
-        item = JSON.stringify(item);        
-        seleciona(item)
-    }
     // FUNÇÃO PARA CADASTRAR
         
     function cadastra(item){
@@ -112,9 +106,7 @@ $(document).ready(function(){
             method: "POST",
             data: {item: item},
             url: "php/control/controller.php",
-            dataType: 'json',
-            
-            
+            dataType: 'json'                        
         }).done(function (result) {
             
             if(result){
@@ -132,23 +124,28 @@ $(document).ready(function(){
     }
     
     function seleciona(item){
+        alert('entrou no ajax');
+        $('#tabela').empty();
         $.ajax({
-           type: 'POST',          
-           data: {item: item},                      
-           url: "php/control/controller.php",
-           dataType: 'json',
-           sucess: function(dados){
-               for(var i=0; dados.length>i; i++){
-                   $('#tabela').append('<tr><td>'+dados[i].ID_DADOS+'</td><td>'+dados[i].DATA_PROD+'</td><td>'+dados[i].EXTRUSORA+'</td><td>'+dados[i].TURNO+'</td><td>'+dados[i].OPERADOR+'</td><td>'+dados[i].PROD_KG+'</td><td>'+dados[i].APARA+'</td><td>'+dados[i].REFILE+'</td><td>'+dados[i].BORRA+'</td><td>'+dados[i].QTD_PARADAS+'</td><td>'+dados[i].MINUTOS_PARADAS+'</td><td>'+dados[i].OC+'</td></tr>');
-               }
-           }
-       });
+            type: 'POST',          
+            data: {item: item},                      
+            url: "php/control/controller.php",
+            dataType: 'json',
+            sucess: function(dados){
+                $('#geral-table').show();
+                for(var i=0; dados.length>i; i++){
+                    $('#tabela').append('<tr><td>'+dados[i].ID_DADOS+'</td><td>'+dados[i].DATA_PROD+'</td><td>'+dados[i].EXTRUSORA+'</td><td>'+dados[i].TURNO+'</td><td>'+dados[i].OPERADOR+'</td><td>'+dados[i].PROD_KG+'</td><td>'+dados[i].APARA+'</td><td>'+dados[i].REFILE+'</td><td>'+dados[i].BORRA+'</td><td>'+dados[i].QTD_PARADAS+'</td><td>'+dados[i].MINUTOS_PARADAS+'</td><td>'+dados[i].OC+'</td></tr>');
+                }
+            }
+        });
     }
    
-    $("#botao-teste").click(function(){                        
-        lista();
-        $('#geral-table').show();
-         
+    $("#botao-teste").click(function(){                                        
+        var obj = new Object();        
+        obj.acao = 0;                
+        obj = JSON.stringify(obj);            
+        seleciona(obj);
+        alert('rodou a funcao');
     });
 
 });   

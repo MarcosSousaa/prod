@@ -3,8 +3,9 @@
     header('Content-Type: application/json', true);
     
     $json = json_decode($_POST['item']);
-    
+    echo"<script>alert('entrou no php')</script>";
     if($json->{'acao'} == 0){
+        
         require_once 'dados.php';
         $dados = new dados();
         $result = $dados->seleciona(); 
