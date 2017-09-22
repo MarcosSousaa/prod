@@ -5,14 +5,14 @@ class datb{
     private $host = "localhost";
     private $usr = "root";
     private $pass = "admin";
-    private $database = "producao";
+    private $dbase = "producao";
 
     // INFO DO BD PRODUCAO
     /*
     private $host = "192.168.1.15";
     private $usr = "root";
     private $pass = "B@nd@)!@";
-    private $database = "producao";
+    private $dbase = "producao";
     */
     // ATRIBUTOS USADOS
     private $query;
@@ -66,14 +66,16 @@ class datb{
         $this->conecta();
         $this->query = $query;
         if($this->resultado = mysql_query(($this->query))){
-            echo 'DADOS GRAVADOS COM SUCESSO';
+            echo 'DADOS GRAVADOS COM SUCESSO';            
             $this->desconecta();
+            
             
         }
         else {
-            echo 'FALHA AO INSERIR';
+            echo 'FALHA AO INSERIR DADOS ';
             echo 'Erro no MySQL: <b>'.mysql_error().'</b>';
             $this->desconecta();
+            return false;
         }
     }
 }

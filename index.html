@@ -22,6 +22,7 @@
 		<!-- AKI COMEÇA O MENU -->
 		<ul>					
                     <li><span class="produt">INSERIR DADOS PRODUÇÃO</span></li>
+                    <li><span class="alter-produt">ALTERAR DADOS PRODUÇÃO</span></li>
                     <li><span class="estatic">ESTATISTICAS</span></li>
 		</ul>
 		<!-- FIM DO MENU -->
@@ -53,11 +54,11 @@
                     </div>
                     
                      <div class="input-field col s6">
-                        <select>
+                        <select id="turno" name="turno">
                             <option value="" disabled selected>Selecione o Turno</option>
-                            <option value="manha">Manhã</option>
-                            <option value="tarde">Tarde</option>
-                            <option value="noite">Noite</option>                            
+                            <option value="MANHA">Manhã</option>
+                            <option value="TARDE">Tarde</option>
+                            <option value="NOITE">Noite</option>                            
                         </select>
                         <label>Turno</label>
                     </div>
@@ -98,7 +99,7 @@
                     </div>
                     
                     <div class="input-field col s12">
-                        <select multiple id="oc">
+                        <select multiple id="oc" name="oc">
                             <option value="" disabled selected>Escolha a Ocorrencia</option>
                             <option value="LB">LB</option>
                             <option value="BFG">BFG</option>
@@ -118,12 +119,20 @@
             </div>
             <!-- AQUI TERMINA O CONTEUDO DO PRODUTO -->
             <!-- AQUI COMEÇA O CONTEUDO DO FORNECEDORES -->
+             <div id="alter-produto">
+                <div class="row"></div>
+                <div class="row">
+                    <h3>Alter dados de Produção</h3>
+                    
+                </div>
+            <!-- AQUI TERMINA O CONTEUDO DO FORNECEDORES -->
+            </div>            
             <div id="estatisticas">
-                <ul>
-                    <li>Adicionar</li>
-                    <li>Editar</li>
-                    <li>Remover</li> <br/><br>
-                </ul>
+                <div class="row"></div>
+                <div class="row">
+                    <h3>Pesquisa de Produção</h3>
+                    
+                </div>
             <!-- AQUI TERMINA O CONTEUDO DO FORNECEDORES -->
             </div>            
 	</section>

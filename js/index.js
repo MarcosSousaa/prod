@@ -1,23 +1,44 @@
+/* global Materialize */
+
 //ESCONDENDO AS DIV E A IMG SAIR
 $(document).ready(function(){
     $('#produto').hide();
+    $('#alter-produto').hide();
     $('#estatisticas').hide();
     $('#container').hide();
     $('.foto-voltar').hide();
     
-    $(".produt").click(function(){
+    $(".produt").click(function(){        
         $('#produto').show("slide");
         $('.foto-voltar').show();
         $('#estatisticas').hide("slide");
-        $('#container').hide("slide");
+        $('.estatic').hide("slide");
+        $('.alter-produt').hide("slide");
+        $('#alter-produto').hide("slide");
+        $('#container').hide("slide");        
     });
     
     // CHAMANDO A DIV CONTAINER (ESTATISTICA)COM A IMG SAIR E ESCONDENDO A FORNECEDORES E PRODUTO
     $(".estatic").click(function(){
         $('#container').show("slide");
         $('.foto-voltar').show();
-        $('#estatisticas').hide("slide");
+        $('#estatisticas').show("slide");
         $('#produto').hide("slide");
+        $('.produt').hide("slide");
+        $('.alter-produt').hide("slide");
+        $('#alter-produto').hide("slide");
+    });
+    
+    // CHAMANDO A DIV CONTAINER (ALTER-PRODUT)COM A IMG SAIR E ESCONDENDO A PRODUTOS E ESTATISTICAS
+    $(".alter-produt").click(function(){
+        $('#container').show("slide");
+        $('.foto-voltar').show();
+        $('#alter-produto').show();
+        $('#estatisticas').hide("slide");
+        $('.estatic').hide("slide");
+        $('#produto').hide("slide");
+        $('.produt').hide("slide");
+        
     });
     
     // FUNÇÃO VOLTANDO PARA A SECTION LIMPA E ESCONDENDO AS IMG SAIR    
@@ -25,6 +46,7 @@ $(document).ready(function(){
         $('#right-conteudo').show("slide");
         $('#produto').hide("slide");
         $('.foto-voltar').hide();
+        location.reload();
     });   
     
     // FUNÇÃO SAIR  DA PAGINA TEM QUE  REPARAR AINDA SÓ FUNCIONA NO INTERNET EXPLORER
@@ -33,86 +55,74 @@ $(document).ready(function(){
         close();
     });
     
-    // ACERTA MASCARA
-    $('#data').mask('99/99/9999');
     
+    // MASCARAS
+    $('#data').mask('99/99/9999');
     // INICIALIZANDO SELECT
-    $('select').material_select();
-
-
-
-    $('#inserir').click(function() {
+    $('select').material_select(); 
+    $("#inserir").click(function() {
         // VALIDAÇÃO
         var flag = true;
         
         if($("#data").val().length <= 2){
             $("#data").focus();
             Materialize.toast('Você Precisa Informar a Data', 4000);
-            flag = false
+            flag = false;
         }
-        //if($("#ext").val().length <= 2){
-        //    $("#ext").focus();
-        //    Materialize.toast('Você precisa escolher a extrusora', 4000);
-        //    flag = false
-        //}                  
-        //if($("#turno").val().length <= 2){
-        //    $("#turno").focus();
-        //    Materialize.toast('Você precisa escolher o turno', 4000);
-        //    flag = false
-       // }
+        
         if($("#operador").val().length <= 2){
             $("#operador").focus();
             Materialize.toast('Você precisa informar o Nome do Operador', 4000);
-            flag = false
+            flag = false;
         }
         if($("#producao").val().length <= 2){
             $("#producao").focus();
             Materialize.toast('Você precisa informar a Quantidade de Produção', 4000);
-            flag = false
+            flag = false;
         }
-        
-        if(flag){
+        alert('SAIU DA VALIDAÇÃO E MANDOU PARA A FUNÇÃO DO AJAX');
+        if(flag){            
             var obj = new Object();
-            obg.acao = 1;
-            obg.data = $("#data").val();
-            obg.extrusora = $("#ext").val();
-            obg.turno = $("#turno").val();
-            obg.operador = $("#operador").val();
-            obg.producao = $("#producao").val();
-            obg.apara = $("#apara").val();
-            obg.refile = $("#refile").val();
-            obg.borra = $("#borra").val();
-            obg.qtd_paradas = $("#paradas").val();
-            obg.minutos_paradas = $("#minutos_paradas").val();
-            obg.oc = $("#oc").val();
-            
+            obj.acao = 1;            
+            obj.data = $("#data").val();            
+            obj.extrusora = $("#ext").val();            
+            obj.turno = $("#turno").val();            
+            obj.operador = $("#operador").val();            
+            obj.producao = $("#producao").val();            
+            obj.apara = $("#apara").val();            
+            obj.refile = $("#refile").val();            
+            obj.borra = $("#borra").val();            
+            obj.qtd_paradas = $("#qtd_paradas").val();            
+            obj.minutos_paradas = $("#minutos_paradas").val();            
+            obj.oc = $("#oc").val();                        
             var obj = JSON.stringify(obj);
             cadastra(obj);
             
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        // FUNÇÃO PARA CADASTRAR
-        
-        function cadastra(item){
-            $.ajax({
-                method: "POST",
-                url: "php/control/controller.php",
-                dataType: 'json',
-                data: { item: item}
-            }).done(function(result){
-                if(result){
-                    
-                }
-            })
-        }
     });
+    
+    // FUNÇÃO PARA CADASTRAR
+        
+    function cadastra(item){
+        $.ajax({
+            method: "POST",
+            url: "php/control/controller.php",
+            dataType: 'json',
+            data: { item: item }
+            
+        }).done(function (result) {
+            
+            if(result){
+                $(".foto-voltar").trigger("click");
+                Materialize.toast("Registro Inserido com sucesso", 4000);
+            }else{
+                Materialize.toast("Erro ao inserir registro", 4000);
+            }
+            
+        }).fail(function (msg){
+            
+            
+            $("html").html(msg.responseText);
+        });
+    }
 });   
