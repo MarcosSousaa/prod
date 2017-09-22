@@ -49,16 +49,11 @@ class datb{
     function sql_query($query){
         $this->conecta();
         $this->query = $query;
-        if($this->resultado = mysql_query($this->query)){
-            $this->desconecta();
-            return $this->resultado;
-        }else{
-            // Caso ocorra um erro, exibe uma mensagem com o Erro
-            print "Ocorreu um erro ao executar a Query MySQL:";            
-            print "Erro no MySQL: <b>".mysql_error()."</b>";
-            die();
-            $this->desconecta();
-        }
+       while($resultado = mysql_fetch_assoc($this->query)){
+           $vetor [] = array_map('utf8_encode', $resultado);
+       }
+       
+       echo json_encode($vetor);       
     }
     
     // INSERIR DADOS

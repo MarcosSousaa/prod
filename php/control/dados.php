@@ -16,6 +16,9 @@
         
      
       public function seleciona(){
+          $banco = new datb();
+          $query = "SELECT * FROM DADOS";
+          $result = $banco ->sql_query($query);
           
       }
       

@@ -7,6 +7,7 @@ $(document).ready(function(){
     $('#estatisticas').hide();
     $('#container').hide();
     $('.foto-voltar').hide();
+    $('#geral-table').hide();
     
     $(".produt").click(function(){        
         $('#produto').show("slide");
@@ -28,7 +29,6 @@ $(document).ready(function(){
         $('.alter-produt').hide("slide");
         $('#alter-produto').hide("slide");
     });
-    
     // CHAMANDO A DIV CONTAINER (ALTER-PRODUT)COM A IMG SAIR E ESCONDENDO A PRODUTOS E ESTATISTICAS
     $(".alter-produt").click(function(){
         $('#container').show("slide");
@@ -38,9 +38,8 @@ $(document).ready(function(){
         $('.estatic').hide("slide");
         $('#produto').hide("slide");
         $('.produt').hide("slide");
-        
+        $('#tabela').empty();
     });
-    
     // FUNÇÃO VOLTANDO PARA A SECTION LIMPA E ESCONDENDO AS IMG SAIR    
     $('.foto-voltar').click(function(){
         $('#right-conteudo').show("slide");
@@ -80,7 +79,7 @@ $(document).ready(function(){
             Materialize.toast('Você precisa informar a Quantidade de Produção', 4000);
             flag = false;
         }
-        alert('SAIU DA VALIDAÇÃO E MANDOU PARA A FUNÇÃO DO AJAX');
+        
         if(flag){            
             var obj = new Object();
             obj.acao = 1;            
@@ -100,15 +99,21 @@ $(document).ready(function(){
             
         }
     });
-    
+    function lista(){
+        var item = new object();        
+        item.acao = 0;        
+        item = JSON.stringify(item);        
+        seleciona(item)
+    }
     // FUNÇÃO PARA CADASTRAR
         
     function cadastra(item){
         $.ajax({
             method: "POST",
+            data: {item: item},
             url: "php/control/controller.php",
             dataType: 'json',
-            data: { item: item }
+            
             
         }).done(function (result) {
             
@@ -125,4 +130,25 @@ $(document).ready(function(){
             $("html").html(msg.responseText);
         });
     }
+    
+    function seleciona(item){
+        $.ajax({
+           type: 'POST',          
+           data: {item: item},                      
+           url: "php/control/controller.php",
+           dataType: 'json',
+           sucess: function(dados){
+               for(var i=0; dados.length>i; i++){
+                   $('#tabela').append('<tr><td>'+dados[i].ID_DADOS+'</td><td>'+dados[i].DATA_PROD+'</td><td>'+dados[i].EXTRUSORA+'</td><td>'+dados[i].TURNO+'</td><td>'+dados[i].OPERADOR+'</td><td>'+dados[i].PROD_KG+'</td><td>'+dados[i].APARA+'</td><td>'+dados[i].REFILE+'</td><td>'+dados[i].BORRA+'</td><td>'+dados[i].QTD_PARADAS+'</td><td>'+dados[i].MINUTOS_PARADAS+'</td><td>'+dados[i].OC+'</td></tr>');
+               }
+           }
+       });
+    }
+   
+    $("#botao-teste").click(function(){                        
+        lista();
+        $('#geral-table').show();
+         
+    });
+
 });   
