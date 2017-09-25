@@ -126,17 +126,17 @@ $(document).ready(function(){
     function seleciona(item){
         alert('entrou no ajax');
         $('#tabela').empty();
+        $('#geral-table').show();
         $.ajax({
             type: 'POST',          
             data: {item: item},                      
             url: "php/control/controller.php",
-            dataType: 'json',
-            sucess: function(dados){
-                $('#geral-table').show();
-                for(var i=0; dados.length>i; i++){
-                    $('#tabela').append('<tr><td>'+dados[i].ID_DADOS+'</td><td>'+dados[i].DATA_PROD+'</td><td>'+dados[i].EXTRUSORA+'</td><td>'+dados[i].TURNO+'</td><td>'+dados[i].OPERADOR+'</td><td>'+dados[i].PROD_KG+'</td><td>'+dados[i].APARA+'</td><td>'+dados[i].REFILE+'</td><td>'+dados[i].BORRA+'</td><td>'+dados[i].QTD_PARADAS+'</td><td>'+dados[i].MINUTOS_PARADAS+'</td><td>'+dados[i].OC+'</td></tr>');
-                }
-            }
+            dataType: 'json'
+                        
+        }).done(function(response){
+            $("#table tbody").html(response);
+        }).fail(function (msg){
+            $("html").html(msg.responseText);
         });
     }
    
@@ -147,5 +147,6 @@ $(document).ready(function(){
         seleciona(obj);
         alert('rodou a funcao');
     });
-
+    
+    
 });   

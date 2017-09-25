@@ -48,12 +48,27 @@ class datb{
     // METODO SELECIONAR DADOS
     function sql_query($query){
         $this->conecta();
-        $this->query = $query;
-       while($resultado = mysql_fetch_assoc($this->query)){
-           $vetor [] = array_map('utf8_encode', $resultado);
-       }
-       
-       echo json_encode($vetor);       
+        $this->query = mysql_query($query);        
+        $return = array();        
+       while($this->resultado = mysql_fetch_array($this->query)){
+           // Escreve na pagina o retorno para cada registro trazido pela query
+           $return[] = array(
+               'ID'=>$this->resultado['ID_DADOS'],
+               'DATA_PROD'=>$this->resultado['DATA_PROD'],
+               'EXTRUSORA'=>$this->resultado['EXTRUSORA'],
+               'TURNO'=>$this->resultado['TURNO'],
+               'OPERADOR'=>$this->resultado['OPERADOR'],
+               'PROD_KG'=>$this->resultado['PROD_KG'],
+               'APARA'=>$this->resultado['APARA'],
+               'REFILE'=>$this->resultado['REFILE'],
+               'BORRA'=>$this->resultado['BORRA'],
+               'QTD_PARADAS'=>$this->resultado['QTD_PARADAS'],
+               'MINUTOS_PARADAS'=>$this->resultado['MINUTOS_PARADAS'],
+               'OC'=>$this->resultado['OC']           
+           );
+       }       
+       $this->desconecta();
+       return $return;       
     }
     
     // INSERIR DADOS
