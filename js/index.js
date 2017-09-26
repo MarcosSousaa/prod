@@ -107,11 +107,10 @@ $(document).ready(function(){
             data: {item: item},
             url: "php/control/controller.php",
             dataType: 'json'                        
-        }).done(function (result) {
-            
-            if(result){
-                $(".foto-voltar").trigger("click");
-                Materialize.toast("Registro Inserido com sucesso", 4000);
+        }).done(function (result) {            
+            if(result){                                
+                $(".foto-voltar").trigger("click");            
+                Materialize.toast("Registro Inserido com Sucesso", 40000);
             }else{
                 Materialize.toast("Erro ao inserir registro", 4000);
             }
@@ -123,8 +122,7 @@ $(document).ready(function(){
         });
     }
     
-    function seleciona(item){
-        alert('entrou no ajax');
+    function seleciona(item){        
         $('#tabela').empty();
         $('#geral-table').show();
         $.ajax({
@@ -144,9 +142,13 @@ $(document).ready(function(){
         var obj = new Object();        
         obj.acao = 0;                
         obj = JSON.stringify(obj);            
-        seleciona(obj);
-        alert('rodou a funcao');
+        seleciona(obj);        
     });
     
+    
+    $("#btn-edit").click(function(){
+              
+        alert('O ID ESCOLHIDO FOI ');
+    });
     
 });   

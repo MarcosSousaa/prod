@@ -75,15 +75,12 @@ class datb{
     public function sql_insert($query){
         $this->conecta();
         $this->query = $query;
-        if($this->resultado = mysql_query(($this->query))){
-            echo 'DADOS GRAVADOS COM SUCESSO';            
-            $this->desconecta();
-            
+        if($this->resultado = mysql_query(($this->query))){                    
+            $this->desconecta();            
+            return true;
             
         }
-        else {
-            echo 'FALHA AO INSERIR DADOS ';
-            echo 'Erro no MySQL: <b>'.mysql_error().'</b>';
+        else {           
             $this->desconecta();
             return false;
         }

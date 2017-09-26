@@ -26,8 +26,8 @@
             $newdata = str_replace("-", "/", $row['DATA_PROD']);
             $newdata2 = date('d/m/Y', strtotime($newdata));
             $table .= "<tr><td>".$row['ID']."</td><td>".$newdata2."</td><td>".$row['EXTRUSORA']."</td><td>".$row['TURNO']."</td><td>".$row['OPERADOR']."</td><td>".$row['PROD_KG']."</td><td>".$row['APARA']."</td><td>".$row['REFILE']."</td><td>".$row['BORRA']."</td><td>".$row['QTD_PARADAS']."</td><td>".$row['MINUTOS_PARADAS']."</td><td>".$row['OC']."</td>";
-            $table .= "<td><a class='waves-effect waves-light btn' id='btn-edit'<i class='material-icons center'>edit</i><button id='id' value=".$row['ID']."></button></a>";
-            $table .= "<td><a class='waves-effect waves-light btn' id='btn-del'<i class='material-icons center'>delete</i><button id=></button></a>";            
+            $table .= "<td><input id='id_edit' type='hidden' value=".$row['ID']."/><a class='waves-effect waves-light btn' id='edit'<i class='material-icons center'>edit</i></a>";
+            $table .= "<td><a class='waves-effect waves-light btn' id='btn-del'<i class='material-icons center'>delete</i><input id='id_del' type='hidden' value=".$row['ID']." /></a>";            
         }        
         return $table;
       
