@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Controle de Produção | Ind Bandeirante de Plásticos</title>
+        <title>Controle de Producao | Ind Bandeirante de Plasticos</title>
         <link rel="stylesheet" href="css/estilo.css">
         <link rel="stylesheet" href="css/materialize.min.css">
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">        
@@ -21,8 +21,8 @@
 		<p class="nome-empresa">Ind Bandeirante</p> <!-- NOME DA EMPRESA -->
 		<!-- AKI COMEÇA O MENU -->
 		<ul>					
-                    <li><span class="produt">INSERIR DADOS PRODUÇÃO</span></li>
-                    <li><span class="alter-produt">ALTERAR DADOS PRODUÇÃO</span></li>
+                    <li><span class="produt">INSERIR DADOS PRODUCAO</span></li>
+                    <li><span class="alter-produt">ALTERAR DADOS PRODUCAO</span></li>
                     <li><span class="estatic">ESTATISTICAS</span></li>
 		</ul>
 		<!-- FIM DO MENU -->
@@ -32,13 +32,12 @@
 	<section id="right-conteudo">
             <img src="img/voltar.png" class="foto-voltar"> <!-- IMG QUE VOLTA APARECE EM TODOS OS CAMPOS -->
             <!-- AQUI COMEÇA O CONTEUDO DO PRODUTOO -->
-            <div id="produto">                 
-                <div class="row"></div>
+            <div id="produto">                                 
                 
                 <div class="row">
                     <div class="input-field col s4">
                         <input id="data" type="text" class="validate"> 
-                        <label for="data">Data Produção</label>
+                        <label for="data">Data Producao</label>
                     </div>
                     
                     <div class="input-field col s6">
@@ -70,7 +69,7 @@
                     
                     <div class="input-field col s4">
                         <input id="producao" type="text" class="validate" data-length="20">
-                        <label for="producao">Produção KG</label>
+                        <label for="producao">Producao KG</label>
                     </div>
                     
                     <div class="input-field col s4">
@@ -89,13 +88,13 @@
                     </div>
                     
                     <div class="input-field col s4">
-                        <input id="qtd_paradas" type="text" class="validate" data-length="20">
-                        <label for="qtd_paradas">Quantidade Paradas</label>
+                        <input id="qtd_parada" type="text" class="validate" data-length="20">
+                        <label for="qtd_parada">Quantidade Parada</label>
                     </div>
                     
                     <div class="input-field col s4">
-                        <input id="minutos_paradas" type="text" class="validate" data-length="20">
-                        <label for="minutos_paradas">Minutos Paradas</label>
+                        <input id="tempo_parada" type="text" class="validate" data-length="20">
+                        <label for="tempo_parada">Tempo Paradas</label>
                     </div>
                     
                     <div class="input-field col s12">
@@ -108,8 +107,34 @@
                             <option value="AC">AC</option>
                             <option value="LM">LG</option>
                         </select>
-                        <label>OC</label>
+                        <label>OC</label>                        
                     </div>
+                    <div class="input-field col s2">
+                        <h6>LB - LIMP. BORDA</h6>
+                        
+                    </div>
+                    <div class="input-field col s2">
+                        <h6>LM - LIMPEZA DE MATRIZ</h6>                        
+                    </div>
+                    <div class="input-field col s2">
+                        <h6>BFG - BALAO FURADO POR GEL</h6>                        
+                    </div>
+                    <div class="input-field col s2">
+                        <h6>LM - LIMPEZA DE MATRIZ</h6>
+                    </div>
+                    <div class="input-field col s2">
+                        <h6>PM - PROBLEMA MECANICO</h6>
+                    </div>
+                    <div class="input-field col s2">
+                        <h6>AC - ACERTO</h6>
+                    </div>
+                    <div class="input-field col s2">
+                         <h6>LG - LIMP. GERAL</h6>
+                    </div> 
+                        
+                        
+                        
+                       
                 </div>
                 <div class="row">
                     <button id="inserir" class="btn waves-effect waves-light right" type="submit" name="action">Inserir

@@ -91,8 +91,8 @@ $(document).ready(function(){
             obj.apara = $("#apara").val();            
             obj.refile = $("#refile").val();            
             obj.borra = $("#borra").val();            
-            obj.qtd_paradas = $("#qtd_paradas").val();            
-            obj.minutos_paradas = $("#minutos_paradas").val();            
+            obj.qtd_parada = $("#qtd_parada").val();            
+            obj.tempo_parada = $("#tempo_parada").val();            
             obj.oc = $("#oc").val();                        
             var obj = JSON.stringify(obj);
             cadastra(obj);
