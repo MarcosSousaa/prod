@@ -61,6 +61,7 @@ class datb{
                'APARA'=>$this->resultado['APARA'],
                'REFILE'=>$this->resultado['REFILE'],
                'BORRA'=>$this->resultado['BORRA'],
+               'ACABAMENTO'=>$this->resultado['ACABAMENTO'],
                'QTD_PARADA'=>$this->resultado['QTD_PARADA'],
                'TEMPO_PARADA'=>$this->resultado['TEMPO_PARADA'],
                'OC'=>$this->resultado['OC']           

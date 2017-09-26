@@ -90,7 +90,8 @@ $(document).ready(function(){
             obj.producao = $("#producao").val();            
             obj.apara = $("#apara").val();            
             obj.refile = $("#refile").val();            
-            obj.borra = $("#borra").val();            
+            obj.borra = $("#borra").val();
+            obj.acabamento = $("#acabamento").val();
             obj.qtd_parada = $("#qtd_parada").val();            
             obj.tempo_parada = $("#tempo_parada").val();            
             obj.oc = $("#oc").val();                        
@@ -147,8 +148,8 @@ $(document).ready(function(){
     
     
     $("#btn-edit").click(function(){
-              
-        alert('O ID ESCOLHIDO FOI ');
+         var id = $(this).append("input[hidden]").val();
+        alert('O ID ESCOLHIDO FOI ' + id);
     });
     
 });   
