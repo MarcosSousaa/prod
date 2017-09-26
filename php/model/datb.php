@@ -2,17 +2,16 @@
 
 class datb{
     // INFO DO BD HOMOLOGACAO
-    //private $host = "localhost";
-    //private $usr = "root";
-    //private $pass = "admin";
-    //private $dbase = "producao";
-
-    // INFO DO BD PRODUCAO
-    
-    private $host = "192.168.1.15";
+    private $host = "localhost";
     private $usr = "root";
-    private $pass = "B@nd@)!@";
+    private $pass = "admin";
     private $dbase = "producao";
+
+    // INFO DO BD PRODUCAO    
+    //private $host = "192.168.1.15";
+    //private $usr = "root";
+    //private $pass = "B@nd@)!@";
+    //private $dbase = "producao";
     
     // ATRIBUTOS USADOS
     private $query;
@@ -29,9 +28,9 @@ class datb{
         if(!$this->link){
             // Caso ocorra um erro, exibe uma mensagem com o erro
             print "Ocorreu um Erro na conexão MySQL:";
-            print "<b>".mysqli_error()."</b>";
+            print "<b>".  mysqli_error()."</b>";
             die();
-        }elseif(!mysqli_select_db($this->dbase,$this->link)){
+        }elseif(!mysqli_select_db($this->link, $this->dbase)){
             // Seleciona o banco após a conexão
             // Caso ocorra um erro, exibe uma mensagem com o erro
             print "Ocorreu um Erro em selecionar o Banco:";
@@ -48,7 +47,7 @@ class datb{
     // METODO SELECIONAR DADOS
     function sql_query($query){
         $this->conecta();
-        $this->query = mysqli_query($query);        
+        $this->query = mysqli_query($this->link,$query);        
         $return = array();        
        while($this->resultado = mysqli_fetch_array($this->query)){
            // Escreve na pagina o retorno para cada registro trazido pela query
@@ -75,7 +74,7 @@ class datb{
     public function sql_insert($query){
         $this->conecta();
         $this->query = $query;
-        if($this->resultado = mysqli_query(($this->query))){                    
+        if($this->resultado = mysqli_query($this->link,$this->query)){                    
             $this->desconecta();            
             return true;
             
