@@ -17,9 +17,10 @@
         require_once 'dados.php';
         $dados = new dados();
         echo $dados->insere_dados($json);         
-    }else if($json == 2){
+    }else if($json->{'acao'} == 2){
         
-        
-                       
+        require_once 'dados.php';
+        $dados = new dados();
+        $result = $dados->altera($json->{'id'});                       
     }
 

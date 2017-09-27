@@ -28,6 +28,7 @@ $(document).ready(function(){
         $('.produt').hide("slide");
         $('.alter-produt').hide("slide");
         $('#alter-produto').hide("slide");
+        
     });
     // CHAMANDO A DIV CONTAINER (ALTER-PRODUT)COM A IMG SAIR E ESCONDENDO A PRODUTOS E ESTATISTICAS
     $(".alter-produt").click(function(){
@@ -39,6 +40,10 @@ $(document).ready(function(){
         $('#produto').hide("slide");
         $('.produt').hide("slide");
         $('#tabela').empty();
+        var obj = new Object();        
+        obj.acao = 0;                
+        obj = JSON.stringify(obj);            
+        seleciona(obj);        
     });
     // FUNÇÃO VOLTANDO PARA A SECTION LIMPA E ESCONDENDO AS IMG SAIR    
     $('.foto-voltar').click(function(){
@@ -61,26 +66,26 @@ $(document).ready(function(){
     $('select').material_select(); 
     $("#inserir").click(function() {
         // VALIDAÇÃO
-        var flag = true;
+        var valid = true;
         
         if($("#data").val().length <= 2){
             $("#data").focus();
             Materialize.toast('Você Precisa Informar a Data', 4000);
-            flag = false;
+            valid = false;
         }
         
         if($("#operador").val().length <= 2){
             $("#operador").focus();
             Materialize.toast('Você precisa informar o Nome do Operador', 4000);
-            flag = false;
+            valid = false;
         }
         if($("#producao").val().length <= 2){
             $("#producao").focus();
             Materialize.toast('Você precisa informar a Quantidade de Produção', 4000);
-            flag = false;
+            valid = false;
         }
         
-        if(flag){            
+        if(valid){            
             var obj = new Object();
             obj.acao = 1;            
             obj.data = $("#data").val();            
@@ -122,7 +127,7 @@ $(document).ready(function(){
             $("html").html(msg.responseText);
         });
     }
-    
+    // FUNCAO SELECIONAR DADOS
     function seleciona(item){        
         $('#tabela').empty();
         $('#geral-table').show();
@@ -133,23 +138,47 @@ $(document).ready(function(){
             dataType: 'json'
                         
         }).done(function(response){
+            alert ('CARREGOU A TABELA');
             $("#table tbody").html(response);
+            
+            
+            
+            
         }).fail(function (msg){
             $("html").html(msg.responseText);
         });
     }
-   
-    $("#botao-teste").click(function(){                                        
+        // FUNCAO ALTERAR DADOS
+    function edita(item){                
+        $.ajax({
+            type: 'POST',          
+            data: {item: item},                      
+            url: "php/control/controller.php",
+            dataType: 'json'
+                        
+        }).done(function(response){
+            alert ('CARREGOU A TABELA');
+            $("#table tbody").html(response);
+            
+            
+            
+            
+        }).fail(function (msg){
+            $("html").html(msg.responseText);
+        });
+    }
+    
+    $('table').delegate(".btn-edit","click",function(){     
+        var id = $('td:first', $(this).parents('tr')).text();        
         var obj = new Object();        
-        obj.acao = 0;                
+        obj.acao = 2;                
+        obj.id = id;
         obj = JSON.stringify(obj);            
         seleciona(obj);        
-    });
-    
-    
-    $("#btn-edit").click(function(){
-         var id = $(this).append("input[hidden]").val();
-        alert('O ID ESCOLHIDO FOI ' + id);
-    });
-    
+   });
+   $('table').delegate(".btn-del","click",function(){       
+           var id = $("")
+           alert(id);
+   });
 });   
+

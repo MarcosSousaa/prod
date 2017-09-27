@@ -8,10 +8,7 @@
         <link rel="stylesheet" href="css/materialize.min.css">
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">        
     </head>    
-    <body>
-        <div id="sair">
-            <img src="img/sair.png" class="foto-sair" />
-        </div>
+    <body>       
 	<section id="left-menu"> <!-- SECTION MENU -->
                 <div class="img edita-div"> <!-- LOGO -->
                     <div class="opcao-editar">
@@ -24,22 +21,17 @@
                     <li><span class="produt">INSERIR DADOS PRODUCAO</span></li>
                     <li><span class="alter-produt">ALTERAR DADOS PRODUCAO</span></li>
                     <li><span class="estatic">ESTATISTICAS</span></li>
-		</ul>
-		<!-- FIM DO MENU -->
-	</section> <!-- FIM DA SECTION MENU -->
-
-	<!-- SECTION CONTEUDO -->
+		</ul>		
+	</section> 
 	<section id="right-conteudo">
             <img src="img/voltar.png" class="foto-voltar"> <!-- IMG QUE VOLTA APARECE EM TODOS OS CAMPOS -->
             <!-- AQUI COMEÇA O CONTEUDO DO PRODUTOO -->
-            <div id="produto">                                 
-                
+            <div id="produto">                                                 
                 <div class="row">
                     <div class="input-field col s4">
                         <input id="data" type="text" class="validate"> 
                         <label for="data">Data Producao</label>
-                    </div>
-                    
+                    </div>                    
                     <div class="input-field col s6">
                         <select id="ext" name="ext" class="validate">
                             <option value="" disabled selected>Selecione a Extrusora</option>
@@ -50,8 +42,7 @@
                             <option value="05">Extrusora 05</option>
                         </select>
                         <label>Extrusora</label>
-                    </div>
-                    
+                    </div>                    
                      <div class="input-field col s6">
                         <select id="turno" name="turno">
                             <option value="" disabled selected>Selecione o Turno</option>
@@ -147,46 +138,6 @@
                     </button>  
                 </div>
             </div>
-            <!-- AQUI TERMINA O CONTEUDO DO PRODUTO -->
-            <!-- AQUI COMEÇA O CONTEUDO DO FORNECEDORES -->
-             <div id="alter-produto">
-                 <div class="row">
-                     <a class="waves-effect waves-light btn" id="botao-teste">CARREGAR</a>
-                 </div>
-                <div class="row">                    
-                    <table border="1" id="table" class="striped centered responsive-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>DATA</th>
-                                <th>EXTRUSORA</th>
-                                <th>TURNO</th>
-                                <th>OPERADOR</th>
-                                <th>PRODUÇÃO KG</th>    
-                                <th>APARA</th>
-                                <th>REFILE</th>
-                                <th>BORRA</th>
-                                <th>DISCO</th>
-                                <th>QTD PARADAS</th>
-                                <th>MINUTOS PARADAS</th>
-                                <th>OC</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tabela">
-                                
-                        </tbody>
-                    </table>
-                </div>
-            <!-- AQUI TERMINA O CONTEUDO DO FORNECEDORES -->
-            </div>            
-            <div id="estatisticas">
-                <div class="row"></div>
-                <div class="row">
-                    <h3>Pesquisa de Produção</h3>
-                    
-                </div>
-            <!-- AQUI TERMINA O CONTEUDO DO FORNECEDORES -->
-            </div>            
 	</section>
 	<!-- FIM DA  SECTION CONTEUDO -->
         <script src="js/jquery.min.js"></script>
