@@ -1,14 +1,25 @@
 /* global Materialize */
 
-//ESCONDENDO AS DIV E A IMG SAIR
+
 $(document).ready(function(){
+    //ESCONDENDO AS DIV 
     $('#produto').hide();
     $('#alter-produto').hide();
     $('#estatisticas').hide();
     $('#container').hide();
     $('.foto-voltar').hide();
     $('#geral-table').hide();
+    $('#atualizar').hide();
     
+    
+    
+    
+// =================================================================================================    
+// 
+// 
+// FUNÇÕES CLICK
+    
+    // ABRE A DIV PRODUTO(TELA PARA INSERIR DADOS E ESCONDE TUDO)
     $(".produt").click(function(){        
         $('#produto').show("slide");
         $('.foto-voltar').show();
@@ -16,7 +27,8 @@ $(document).ready(function(){
         $('.estatic').hide("slide");
         $('.alter-produt').hide("slide");
         $('#alter-produto').hide("slide");
-        $('#container').hide("slide");        
+        $('#container').hide("slide");
+        
     });
     
     // CHAMANDO A DIV CONTAINER (ESTATISTICA)COM A IMG SAIR E ESCONDENDO A FORNECEDORES E PRODUTO
@@ -53,17 +65,21 @@ $(document).ready(function(){
         location.reload();
     });   
     
-    // FUNÇÃO SAIR  DA PAGINA TEM QUE  REPARAR AINDA SÓ FUNCIONA NO INTERNET EXPLORER
-    $('#sair').click(function(){
-        confirm("Deseja sair ?");
-        close();
-    });
-    
-    
+// =========================================================================================
+// 
+// MASCARAS
     // MASCARAS
     $('#data').mask('99/99/9999');
+    $('#tempo_parada').mask('99:99');
     // INICIALIZANDO SELECT
     $('select').material_select(); 
+    
+    // ======================================================================================
+//
+//    
+// FUNCOES BD(AJAX)
+    
+    // INSERIR DADOS 
     $("#inserir").click(function() {
         // VALIDAÇÃO
         var valid = true;
@@ -105,8 +121,10 @@ $(document).ready(function(){
             
         }
     });
-    // FUNÇÃO PARA CADASTRAR
-        
+    
+    
+    
+    // FUNÇÃO PARA CADASTRAR    
     function cadastra(item){
         $.ajax({
             method: "POST",
@@ -137,33 +155,70 @@ $(document).ready(function(){
             url: "php/control/controller.php",
             dataType: 'json'
                         
-        }).done(function(response){
-            alert ('CARREGOU A TABELA');
+        }).done(function(response){           
             $("#table tbody").html(response);
-            
-            
-            
+                                    
             
         }).fail(function (msg){
             $("html").html(msg.responseText);
         });
     }
-        // FUNCAO ALTERAR DADOS
-    function edita(item){                
+    
+    
+    // FUNCAO SELECIONA DADOS COM ID 
+    function seleciona_dados(item){                
         $.ajax({
             type: 'POST',          
             data: {item: item},                      
             url: "php/control/controller.php",
-            dataType: 'json'
-                        
+            dataType: 'json'                        
         }).done(function(response){
-            alert ('CARREGOU A TABELA');
-            $("#table tbody").html(response);
-            
-            
-            
-            
+            alert('deu_certo');
+            $('#alter-produto').hide();                     
+            $('#inserir').hide();            
+            $('#atualizar').show();
+            $('#produto').show();              
+            $('#id').val(response.ID);
+            $('#data').val(response.DATA_PROD);
+            $('#data').select();
+            $('#ext').val(response.EXTRUSORA).material_select();
+            $('#turno').val(response.TURNO).material_select();            
+            $('#operador').val(response.OPERADOR);
+            $('#operador').select();
+            $('#producao').val(response.PROD_KG);
+            $('#producao').select();
+            $('#apara').val(response.APARA); 
+            $('#apara').select();
+            $('#refile').val(response.REFILE); 
+            $('#refile').select();
+            $('#borra').val(response.BORRA);   
+            $('#borra').select();
+            $('#acabamento').val(response.ACABAMENTO); 
+            $('#acabamento').select();
+            $('#qtd_parada').val(response.QTD_PARADA);  
+            $('#qtd_parada').select();
+            $('#tempo_parada').val(response.TEMPO_PARADA);    
+            $('#tempo_parada').select();
+            $('#oc').val(response.OC).material_select();                            
         }).fail(function (msg){
+            $("html").html(msg.responseText);
+        });
+    }    
+    function edita(item){
+        $.ajax({
+            method: "POST",
+            data: {item: item},
+            url: "php/control/controller.php",
+            dataType: 'json'                        
+        }).done(function (result) {            
+            if(result){                                
+                $(".foto-voltar").trigger("click");            
+                Materialize.toast("Registro alterado com Sucesso", 40000);
+            }else{
+                Materialize.toast("Erro ao alterar registro", 4000);
+            }
+            
+        }).fail(function (msg){                       
             $("html").html(msg.responseText);
         });
     }
@@ -174,11 +229,50 @@ $(document).ready(function(){
         obj.acao = 2;                
         obj.id = id;
         obj = JSON.stringify(obj);            
-        seleciona(obj);        
+        seleciona_dados(obj);        
    });
+   
    $('table').delegate(".btn-del","click",function(){       
-           var id = $("")
-           alert(id);
+           var id = $("");
+           
+   });
+   
+   $('#atualizar').click(function(){
+       var valid = true;
+       if($("#data").val().length <= 2){
+            $("#data").focus();
+            Materialize.toast('Você Precisa Informar a Data', 4000);
+            valid = false;
+        }        
+        if($("#operador").val().length <= 2){
+            $("#operador").focus();
+            Materialize.toast('Você precisa informar o Nome do Operador', 4000);
+            valid = false;
+        }
+        if($("#producao").val().length <= 2){
+            $("#producao").focus();
+            Materialize.toast('Você precisa informar a Quantidade de Produção', 4000);
+            valid = false;
+        }        
+        if(valid){            
+            var obj = new Object();
+            obj.acao = 3;
+            obj.id = $("#id").val();
+            obj.data = $("#data").val();            
+            obj.extrusora = $("#ext").val();            
+            obj.turno = $("#turno").val();            
+            obj.operador = $("#operador").val();            
+            obj.producao = $("#producao").val();            
+            obj.apara = $("#apara").val();            
+            obj.refile = $("#refile").val();            
+            obj.borra = $("#borra").val();
+            obj.acabamento = $("#acabamento").val();
+            obj.qtd_parada = $("#qtd_parada").val();            
+            obj.tempo_parada = $("#tempo_parada").val();            
+            obj.oc = $("#oc").val();                        
+            var obj = JSON.stringify(obj);
+            edita(obj);            
+        }
    });
 });   
 

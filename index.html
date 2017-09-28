@@ -12,34 +12,28 @@
         <div id="sair">
             <img src="img/sair.png" class="foto-sair" />
         </div>
-	<section id="left-menu"> <!-- SECTION MENU -->
-                <div class="img edita-div"> <!-- LOGO -->
+	<section id="left-menu"> 
+                <div class="img edita-div"> 
                     <div class="opcao-editar">
                         
                     </div>
 		</div>
-		<p class="nome-empresa">Ind Bandeirante</p> <!-- NOME DA EMPRESA -->
-		<!-- AKI COMEÇA O MENU -->
+		<p class="nome-empresa">Ind Bandeirante</p> <!-- NOME DA EMPRESA -->		
 		<ul>					
                     <li><span class="produt">INSERIR DADOS PRODUCAO</span></li>
                     <li><span class="alter-produt">ALTERAR DADOS PRODUCAO</span></li>
                     <li><span class="estatic">ESTATISTICAS</span></li>
-		</ul>
-		<!-- FIM DO MENU -->
-	</section> <!-- FIM DA SECTION MENU -->
-
-	<!-- SECTION CONTEUDO -->
+		</ul>		
+	</section>
 	<section id="right-conteudo">
-            <img src="img/voltar.png" class="foto-voltar"> <!-- IMG QUE VOLTA APARECE EM TODOS OS CAMPOS -->
-            <!-- AQUI COMEÇA O CONTEUDO DO PRODUTOO -->
-            <div id="produto">                                 
-                
+            <img src="img/voltar.png" class="foto-voltar">            
+            <div id="produto">                                                 
                 <div class="row">
                     <div class="input-field col s4">
+                        <input id="id" name="id" type="hidden" value=""/>
                         <input id="data" type="text" class="validate"> 
                         <label for="data">Data Producao</label>
-                    </div>
-                    
+                    </div>                    
                     <div class="input-field col s6">
                         <select id="ext" name="ext" class="validate">
                             <option value="" disabled selected>Selecione a Extrusora</option>
@@ -50,8 +44,7 @@
                             <option value="05">Extrusora 05</option>
                         </select>
                         <label>Extrusora</label>
-                    </div>
-                    
+                    </div>                    
                      <div class="input-field col s6">
                         <select id="turno" name="turno">
                             <option value="" disabled selected>Selecione o Turno</option>
@@ -60,48 +53,39 @@
                             <option value="NOITE">Noite</option>                            
                         </select>
                         <label>Turno</label>
-                    </div>
-                    
+                    </div>                    
                     <div class="input-field col s4">
                         <input id="operador" type="text" class="validate" data-length="20">
                         <label for="operador">Operador</label>
-                    </div>
-                    
+                    </div>                    
                     <div class="input-field col s4">
                         <input id="producao" type="text" class="validate" data-length="20">
                         <label for="producao">Producao KG</label>
-                    </div>
-                    
+                    </div>                    
                     <div class="input-field col s4">
                         <input id="apara" type="text" class="validate" data-length="20">
                         <label for="apara">Apara</label>
-                    </div>
-                    
+                    </div>                    
                     <div class="input-field col s4">
                         <input id="refile" type="text" class="validate" data-length="20">
                         <label for="refile">Refile</label>
-                    </div>
-                    
+                    </div>                    
                     <div class="input-field col s4">
                         <input id="borra" type="text" class="validate" data-length="20">
                         <label for="borra">Borra</label>
-                    </div>
-                    
+                    </div>                    
                     <div class="input-field col s4">
                         <input id="acabamento" type="text" class="validate" data-length="20">
                         <label for="acabamento">Acabamento/Disco</label>
-                    </div>
-                    
+                    </div>                    
                     <div class="input-field col s4">
                         <input id="qtd_parada" type="text" class="validate" data-length="20">
                         <label for="qtd_parada">Quantidade Parada</label>
-                    </div>
-                    
+                    </div>                    
                     <div class="input-field col s4">
                         <input id="tempo_parada" type="text" class="validate" data-length="20">
                         <label for="tempo_parada">Tempo Paradas</label>
-                    </div>
-                    
+                    </div>                    
                     <div class="input-field col s12">
                         <select multiple id="oc" name="oc">
                             <option value="" disabled selected>Escolha a Ocorrencia</option>
@@ -135,20 +119,17 @@
                     </div>
                     <div class="input-field col s2">
                          <h6>LG - LIMP. GERAL</h6>
-                    </div> 
-                        
-                        
-                        
-                       
+                    </div>     
                 </div>
                 <div class="row">
                     <button id="inserir" class="btn waves-effect waves-light right" type="submit" name="action">Inserir
                         <i class="material-icons right">send</i>                        
-                    </button>  
+                    </button>                    
+                    <button id="atualizar" class="btn waves-effect waves-light right" type="submit" name="action">Salvar
+                        <i class="material-icons right">send</i>                        
+                    </button>                     
                 </div>
-            </div>
-            <!-- AQUI TERMINA O CONTEUDO DO PRODUTO -->
-            <!-- AQUI COMEÇA O CONTEUDO DO FORNECEDORES -->
+            </div>            
              <div id="alter-produto">
                  <div class="row">
                      <a class="waves-effect waves-light btn" id="botao-teste">CARREGAR</a>
@@ -176,27 +157,19 @@
                                 
                         </tbody>
                     </table>
-                </div>
-            <!-- AQUI TERMINA O CONTEUDO DO FORNECEDORES -->
+                </div>            
             </div>            
             <div id="estatisticas">
                 <div class="row"></div>
                 <div class="row">
-                    <h3>Pesquisa de Produção</h3>
-                    
-                </div>
-            <!-- AQUI TERMINA O CONTEUDO DO FORNECEDORES -->
+                    <h3>Pesquisa de Produção</h3>                    
+                </div>            
             </div>            
-	</section>
-	<!-- FIM DA  SECTION CONTEUDO -->
+	</section>	
         <script src="js/jquery.min.js"></script>
-	<script src="js/jquery.ui.min.js"></script>
+	<script src="js/jquery-ui.min.js"></script>
 	<script src="js/index.js"></script>
         <script src="js/materialize.min.js"></script>
-        <script type="text/javascript" src="js/jquery.maskedinput.min.js"></script>
-        <!--<script src="js/materialize.js"></script> -->
-        
-        
-    </body>
-        
+        <script src="js/jquery.maskedinput.min.js"></script> 
+    </body>        
 </html>
