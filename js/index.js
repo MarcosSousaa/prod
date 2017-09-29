@@ -52,10 +52,7 @@ $(document).ready(function(){
         $('#produto').hide("slide");
         $('.produt').hide("slide");
         $('#tabela').empty();
-        var obj = new Object();        
-        obj.acao = 0;                
-        obj = JSON.stringify(obj);            
-        seleciona(obj);        
+        
     });
     // FUNÇÃO VOLTANDO PARA A SECTION LIMPA E ESCONDENDO AS IMG SAIR    
     $('.foto-voltar').click(function(){
@@ -70,6 +67,8 @@ $(document).ready(function(){
 // MASCARAS
     // MASCARAS
     $('#data').mask('99/99/9999');
+    $('#data1').mask('99/99/9999');
+    $('#data2').mask('99/99/9999');
     $('#tempo_parada').mask('99:99');
     // INICIALIZANDO SELECT
     $('select').material_select(); 
@@ -82,8 +81,7 @@ $(document).ready(function(){
     // INSERIR DADOS 
     $("#inserir").click(function() {
         // VALIDAÇÃO
-        var valid = true;
-        
+        var valid = true;        
         if($("#data").val().length <= 2){
             $("#data").focus();
             Materialize.toast('Você Precisa Informar a Data', 4000);
@@ -100,11 +98,12 @@ $(document).ready(function(){
             Materialize.toast('Você precisa informar a Quantidade de Produção', 4000);
             valid = false;
         }
-        
+        var data = $('#data').val();
+        var newdata = data.split("/").reverse().join("-");        
         if(valid){            
             var obj = new Object();
             obj.acao = 1;            
-            obj.data = $("#data").val();            
+            obj.data = newdata;           
             obj.extrusora = $("#ext").val();            
             obj.turno = $("#turno").val();            
             obj.operador = $("#operador").val();            
@@ -121,9 +120,7 @@ $(document).ready(function(){
             
         }
     });
-    
-    
-    
+            
     // FUNÇÃO PARA CADASTRAR    
     function cadastra(item){
         $.ajax({
@@ -139,9 +136,7 @@ $(document).ready(function(){
                 Materialize.toast("Erro ao inserir registro", 4000);
             }
             
-        }).fail(function (msg){
-            
-            
+        }).fail(function (msg){                        
             $("html").html(msg.responseText);
         });
     }
@@ -172,8 +167,7 @@ $(document).ready(function(){
             data: {item: item},                      
             url: "php/control/controller.php",
             dataType: 'json'                        
-        }).done(function(response){
-            alert('deu_certo');
+        }).done(function(response){            
             $('#alter-produto').hide();                     
             $('#inserir').hide();            
             $('#atualizar').show();
@@ -203,7 +197,71 @@ $(document).ready(function(){
         }).fail(function (msg){
             $("html").html(msg.responseText);
         });
-    }    
+    }
+    
+    function deleta_dados(item){
+        $.ajax({
+        type: 'POST',          
+        data: {item: item},                      
+        url: "php/control/controller.php",
+        dataType: 'json'
+        }).done(function (result) {            
+            if(result){                                
+                $(".foto-voltar").trigger("click");            
+                Materialize.toast("Registro Deletado com Sucesso", 40000);
+            }else{
+                Materialize.toast("Erro ao Deletar registro", 4000);
+            }
+            
+        }).fail(function (msg){                        
+            $("html").html(msg.responseText);
+        });
+    }
+    
+    $('#atualizar').click(function(){
+       // VALIDAÇÃO
+        var valid = true;        
+        if($("#data").val().length <= 2){
+            $("#data").focus();
+            Materialize.toast('Você Precisa Informar a Data', 4000);
+            valid = false;
+        }
+        
+        if($("#operador").val().length <= 2){
+            $("#operador").focus();
+            Materialize.toast('Você precisa informar o Nome do Operador', 4000);
+            valid = false;
+        }
+        if($("#producao").val().length <= 2){
+            $("#producao").focus();
+            Materialize.toast('Você precisa informar a Quantidade de Produção', 4000);
+            valid = false;
+        }
+        var data = $('#data').val();
+        var newdata = data.split("/").reverse().join("-");        
+        if(valid){            
+            var obj = new Object();
+            obj.acao = 3;           
+            obj.id = $("#id").val();
+            obj.data = newdata;
+            alert(obj.data);
+            obj.extrusora = $("#ext").val();            
+            obj.turno = $("#turno").val();            
+            obj.operador = $("#operador").val();            
+            obj.producao = $("#producao").val();            
+            obj.apara = $("#apara").val();            
+            obj.refile = $("#refile").val();            
+            obj.borra = $("#borra").val();
+            obj.acabamento = $("#acabamento").val();
+            obj.qtd_parada = $("#qtd_parada").val();            
+            obj.tempo_parada = $("#tempo_parada").val();            
+            obj.oc = $("#oc").val();                        
+            var obj = JSON.stringify(obj);
+            edita(obj);
+            
+        }
+   });
+    
     function edita(item){
         $.ajax({
             method: "POST",
@@ -215,10 +273,11 @@ $(document).ready(function(){
                 $(".foto-voltar").trigger("click");            
                 Materialize.toast("Registro alterado com Sucesso", 40000);
             }else{
-                Materialize.toast("Erro ao alterar registro", 4000);
+                Materialize.toast("Erro ao alterar o registro", 4000);
             }
             
-        }).fail(function (msg){                       
+        }).fail(function (msg){                        
+            alert('errou');
             $("html").html(msg.responseText);
         });
     }
@@ -233,46 +292,26 @@ $(document).ready(function(){
    });
    
    $('table').delegate(".btn-del","click",function(){       
-           var id = $("");
+        alert('botao-funcionou');
+        var id = $('td:first', $(this).parents('tr')).text();        
+        var obj = new Object();        
+        obj.acao = 4;                
+        obj.id = id;
+        obj = JSON.stringify(obj);                    
+        deleta_dados(obj);        
            
    });
-   
-   $('#atualizar').click(function(){
-       var valid = true;
-       if($("#data").val().length <= 2){
-            $("#data").focus();
-            Materialize.toast('Você Precisa Informar a Data', 4000);
-            valid = false;
-        }        
-        if($("#operador").val().length <= 2){
-            $("#operador").focus();
-            Materialize.toast('Você precisa informar o Nome do Operador', 4000);
-            valid = false;
-        }
-        if($("#producao").val().length <= 2){
-            $("#producao").focus();
-            Materialize.toast('Você precisa informar a Quantidade de Produção', 4000);
-            valid = false;
-        }        
-        if(valid){            
-            var obj = new Object();
-            obj.acao = 3;
-            obj.id = $("#id").val();
-            obj.data = $("#data").val();            
-            obj.extrusora = $("#ext").val();            
-            obj.turno = $("#turno").val();            
-            obj.operador = $("#operador").val();            
-            obj.producao = $("#producao").val();            
-            obj.apara = $("#apara").val();            
-            obj.refile = $("#refile").val();            
-            obj.borra = $("#borra").val();
-            obj.acabamento = $("#acabamento").val();
-            obj.qtd_parada = $("#qtd_parada").val();            
-            obj.tempo_parada = $("#tempo_parada").val();            
-            obj.oc = $("#oc").val();                        
-            var obj = JSON.stringify(obj);
-            edita(obj);            
-        }
-   });
+      $('#botao-teste').click(function(){
+        var data1 = $('#data1').val();
+        var newdata1 = data1.split("/").reverse().join("-");
+        var data2 = $('#data2').val();
+        var newdata2 = data2.split("/").reverse().join("-");
+        var obj = new Object();        
+        obj.acao = 0;        
+        obg.data1 = newdata1;
+        obg.data2 = newdata2;
+        obj = JSON.stringify(obj);            
+        seleciona(obj);        
+      })
 });   
 
