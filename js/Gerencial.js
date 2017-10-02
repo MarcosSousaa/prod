@@ -25,54 +25,12 @@ $(document).ready(function(){
     $('#data2').mask('99/99/9999');
     
        
-    function geraGraficos(item){                
-        $('#pesquisa').hide();
-        $('#dashboard').show();        
+    function geraGraficos(item){                              
         $.ajax({
             ype: 'POST',          
             data: {dados: item},                      
             url: "php/control/controller_grafico.php",
             dataType: 'json'            
-        }).done(function(response){                                                           
-            alert('VAI CARREGAR O GRAFICO');            
-            var ctx = document.getElementById("myChart").getContext('2d');
-            var myChart = new Chart(ctx, {            
-            type: 'bar',
-            data: {                
-                datasets: [{
-                    label: 'Producao',
-                    data: [response.PROD_KG
-                        ],
-                    backgroundColor: [
-                        'rgba(215,40,40,0.9)',
-                        'rgba(215,40,40,0.9)',
-                        'rgba(215,40,40,0.9)',
-                        'rgba(215,40,40,0.9)',                        
-                    ],
-                    
-                    
-                },{
-                    label: 'Meta de Producao',
-                    data: ['900.300'],
-                    type: 'line'
-                   
-                }],
-                labels: [response.EXTRUSORA]
-            },
-            
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero:true
-                        }
-                    }]
-                }
-            }
-        });
-        
-        }).fail(function (msg){
-            alert('NAO FOI POSSIVEL GERAR O GRAFICO');
         });
     }
     
