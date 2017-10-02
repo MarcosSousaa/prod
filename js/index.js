@@ -9,8 +9,8 @@ $(document).ready(function(){
     $('#container').hide();
     $('.foto-voltar').hide();
     $('#geral-table').hide();
-    $('#atualizar').hide();
-    
+    $('#atualizar').hide();    
+    $('#dashboard').hide();    
     
     
     
@@ -69,6 +69,8 @@ $(document).ready(function(){
     $('#data').mask('99/99/9999');
     $('#data1').mask('99/99/9999');
     $('#data2').mask('99/99/9999');
+    $('#data11').mask('99/99/9999');
+    $('#data21').mask('99/99/9999');
     $('#tempo_parada').mask('99:99');
     // INICIALIZANDO SELECT
     $('select').material_select(); 
@@ -276,8 +278,7 @@ $(document).ready(function(){
                 Materialize.toast("Erro ao alterar o registro", 4000);
             }
             
-        }).fail(function (msg){                        
-            alert('errou');
+        }).fail(function (msg){                                    
             $("html").html(msg.responseText);
         });
     }
@@ -291,8 +292,7 @@ $(document).ready(function(){
         seleciona_dados(obj);        
    });
    
-   $('table').delegate(".btn-del","click",function(){       
-        alert('botao-funcionou');
+   $('table').delegate(".btn-del","click",function(){               
         var id = $('td:first', $(this).parents('tr')).text();        
         var obj = new Object();        
         obj.acao = 4;                
@@ -301,17 +301,50 @@ $(document).ready(function(){
         deleta_dados(obj);        
            
    });
-      $('#botao-teste').click(function(){
+    $('#botao-alterar').click(function(){
         var data1 = $('#data1').val();
         var newdata1 = data1.split("/").reverse().join("-");
         var data2 = $('#data2').val();
         var newdata2 = data2.split("/").reverse().join("-");
         var obj = new Object();        
         obj.acao = 0;        
-        obg.data1 = newdata1;
-        obg.data2 = newdata2;
+        obj.data1 = newdata1;
+        obj.data2 = newdata2;
         obj = JSON.stringify(obj);            
         seleciona(obj);        
-      })
+      });
+      
+      /* GERA GRAFICOS */
+    $('#carregar').click(function(){
+        var grafico = $('#grafico').val();
+        var data1 = $('#data1').val();
+        var newdata1 = data1.split("/").reverse().join("-");
+        var data2 = $('#data2').val();
+        var newdata2 = data2.split("/").reverse().join("-");
+        var obj = new Object();        
+        obj.acao = 5;                        
+        obj.grafico = grafico;
+        obj.data1 = newdata1;
+        obj.data2 = newdata2;        
+        obj = JSON.stringify(obj);                    
+        geraGraficos(obj);        
+    });
+    
+    function geraGraficos(item){                
+        $('#pesquisa').hide();
+        $('#dashboard').show();        
+        $.ajax({
+            type: 'POST',          
+            data: {dados: item},                      
+            url: "php/control/controller.php",
+            dataType: 'json'            
+        }).done(function(response){                                                           
+            alert('TROUXE OS DADOS DA SELECT');
+        
+        }).fail(function (msg){
+            alert('NAO FOI POSSIVEL GERAR O GRAFICO');
+        });
+    }
+        
 });   
 

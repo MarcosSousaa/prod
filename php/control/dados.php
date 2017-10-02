@@ -19,7 +19,7 @@
      
         public function seleciona($json){
             $banco = new datb();
-            $query = "SELECT * FROM DADOS;";
+            $query = "SELECT * FROM DADOS WHERE DATA_PROD BETWEEN'".$json->{'data1'}."' AND '".$json->{'data2'}."';";
             $result = $banco ->sql_query($query); // $newdata = str_replace("/","-",$json->{'data'});                    
             $table = "";
             foreach ($result as $row){            
