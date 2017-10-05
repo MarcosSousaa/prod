@@ -42,6 +42,7 @@
             <a class="waves-effect waves-light btn" id="voltar" href="../../Gerencial.html">VOLTAR</a>
             <div class="row">
                 <div class="col s3">
+                    <h4>ULTIMA DATA PREENCHIDA COM INFORMACAO</h4>
                     <p><strong>Nome Grafico</strong> : Producao - Periodo <?php echo $data1." a "; echo $data2?></p>
                     <canvas id="myChart"></canvas>
                 </div>

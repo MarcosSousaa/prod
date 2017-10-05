@@ -3,6 +3,31 @@
     class graficos {
         public $linha = array();
             // GRAFICO GERAL
+            public function buscaData(){
+                $data1 = $_SESSION['data1'];
+                $data2 = $_SESSION['data2'];
+                $banco = new datb();
+                $linhas = 1;
+                $result = $banco->sql_grafico("SELECT DATA_PROD FROM DADOS WHERE DATA_PROD BETWEEN'".$data1."' AND '".$data2."' ORDER BY DATA_PROD DESC LIMIT 1;");
+            if(mysqli_num_rows($result)> 0){
+                while($dados = mysqli_fetch_object($result)){
+                    switch($linhas){
+                        case 1:
+                            $this->linha[0][5] = $dados->DATA_PROD;
+                            
+                    }
+                    $linhas++;
+                }                
+                $_SESSION['array'] = $this->linha;
+            }
+            else{
+                echo "<script>alert('Não contem dados para gerar o grafico, rever filtro')</script>";
+                echo "<script>window.location.assign('../../Gerencial.html')</script>";
+                $_SESSION['data1'] = null;
+                $_SESSION['data2'] = null;         
+            }            
+        }
+            
             public function geraGrafico0(){
             $data1 = $_SESSION['data1'];
             $data2 = $_SESSION['data2'];
