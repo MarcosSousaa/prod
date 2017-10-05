@@ -18,9 +18,9 @@
         
      
         public function seleciona($json){
-            $banco = new datb();
+            $banco = new datb();            
             $query = "SELECT * FROM DADOS WHERE DATA_PROD BETWEEN'".$json->{'data1'}."' AND '".$json->{'data2'}."';";
-            $result = $banco ->sql_query($query); // $newdata = str_replace("/","-",$json->{'data'});                    
+            $result = $banco ->sql_query($query);
             $table = "";
             foreach ($result as $row){            
                 $row['DATA_PROD'] = str_replace("-", "/", $row['DATA_PROD']);
@@ -42,8 +42,7 @@
         public function seleciona_id($id){
             $banco = new datb();
             $query = "SELECT * FROM DADOS WHERE ID_DADOS=".$id.";";
-            $result = $banco->sql_query($query);
-            $form = "";
+            $result = $banco->sql_query($query);            
             foreach($result as $row){
                 $row['DATA_PROD'] = str_replace("-", "/", $row['DATA_PROD']);
                 $row['DATA_PROD'] = date('d/m/Y', strtotime($row['DATA_PROD'])); 
@@ -60,14 +59,14 @@
                 $oc_tr = implode(",",$json->{'oc'});                
                 $query = "UPDATE DADOS SET DATA_PROD='".$json->{'data'}."',EXTRUSORA='".$json->{'extrusora'}."',TURNO='".$json->{'turno'}."',OPERADOR='".$json->{'operador'}."',PROD_KG='".$json->{'producao'}."',APARA='".$json->{'apara'}."',REFILE='".$json->{'refile'}."',BORRA='".$json->{'borra'}."',ACABAMENTO='".$json->{'acabamento'}."',QTD_PARADA='".$json->{'qtd_parada'}."',TEMPO_PARADA='".$json->{'tempo_parada'}."',OC='".$oc_tr."' WHERE ID_DADOS='".$json->{'id'}."';";            
             }
-            return $banco ->sql_insert($query);
+            return $banco->sql_insert($query);
         }
         
         public function deleta_dados($id){
             $banco = new datb();
             $query = "DELETE  FROM DADOS WHERE ID_DADOS=".$id.";";
-            return $banco ->sql_insert($query);            
-        }
+            return $banco->sql_insert($query);            
+        }                       
       
     }
 

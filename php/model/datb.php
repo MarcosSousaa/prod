@@ -71,6 +71,22 @@ class datb{
        return $return;       
     }
     
+    function sql_grafico($query){
+        $this->conecta();
+        $this->query = mysqli_query($this->link,$query);       
+        if($this->resultado = $this->query){ 
+            $this->desconecta();
+            return $this->resultado;
+        }else{
+            // Caso ocorra um erro, exibe uma mensagem com o Erro
+            print "Ocorreu um erro ao executar a Query MySQL: <b>$query</b>";
+            print "<br><br>";
+            print "Erro no MySQL: <b>".mysql_error()."</b>";
+            die();
+            $this->desconecta();
+        }        
+    }
+    
     // INSERIR DADOS
     public function sql_insert($query){
         $this->conecta();

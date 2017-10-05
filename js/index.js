@@ -4,8 +4,7 @@
 $(document).ready(function(){
     //ESCONDENDO AS DIV 
     $('#produto').hide();
-    $('#alter-produto').hide();
-    $('#estatisticas').hide();
+    $('#alter-produto').hide();   
     $('#container').hide();
     $('.foto-voltar').hide();
     $('#geral-table').hide();
@@ -30,18 +29,7 @@ $(document).ready(function(){
         $('#container').hide("slide");
         
     });
-    
-    // CHAMANDO A DIV CONTAINER (ESTATISTICA)COM A IMG SAIR E ESCONDENDO A FORNECEDORES E PRODUTO
-    $(".estatic").click(function(){
-        $('#container').show("slide");
-        $('.foto-voltar').show();
-        $('#estatisticas').show("slide");
-        $('#produto').hide("slide");
-        $('.produt').hide("slide");
-        $('.alter-produt').hide("slide");
-        $('#alter-produto').hide("slide");
-        
-    });
+          
     // CHAMANDO A DIV CONTAINER (ALTER-PRODUT)COM A IMG SAIR E ESCONDENDO A PRODUTOS E ESTATISTICAS
     $(".alter-produt").click(function(){
         $('#container').show("slide");
@@ -245,8 +233,7 @@ $(document).ready(function(){
             var obj = new Object();
             obj.acao = 3;           
             obj.id = $("#id").val();
-            obj.data = newdata;
-            alert(obj.data);
+            obj.data = newdata;            
             obj.extrusora = $("#ext").val();            
             obj.turno = $("#turno").val();            
             obj.operador = $("#operador").val();            
@@ -312,39 +299,6 @@ $(document).ready(function(){
         obj.data2 = newdata2;
         obj = JSON.stringify(obj);            
         seleciona(obj);        
-      });
-      
-      /* GERA GRAFICOS */
-    $('#carregar').click(function(){
-        var grafico = $('#grafico').val();
-        var data1 = $('#data1').val();
-        var newdata1 = data1.split("/").reverse().join("-");
-        var data2 = $('#data2').val();
-        var newdata2 = data2.split("/").reverse().join("-");
-        var obj = new Object();        
-        obj.acao = 5;                        
-        obj.grafico = grafico;
-        obj.data1 = newdata1;
-        obj.data2 = newdata2;        
-        obj = JSON.stringify(obj);                    
-        geraGraficos(obj);        
-    });
-    
-    function geraGraficos(item){                
-        $('#pesquisa').hide();
-        $('#dashboard').show();        
-        $.ajax({
-            type: 'POST',          
-            data: {dados: item},                      
-            url: "php/control/controller.php",
-            dataType: 'json'            
-        }).done(function(response){                                                           
-            alert('TROUXE OS DADOS DA SELECT');
-        
-        }).fail(function (msg){
-            alert('NAO FOI POSSIVEL GERAR O GRAFICO');
-        });
-    }
-        
+      });  
 });   
 

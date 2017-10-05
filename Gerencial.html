@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <title>Controle de Producao | Ind Bandeirante de Plasticos</title>
-        <link rel="stylesheet" href="css/estilo.css">
+        <link rel="stylesheet" href="css/index.css">
         <link rel="stylesheet" href="css/materialize.min.css">
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">        
     </head>    
@@ -28,21 +28,18 @@
             <div id="estatisticas">
                 <div class="row"></div>
                 <div class="row">
-                    <div class="input-field col s6">
-                        <select id="grafico" name="grafico" class="validate">
-                            <option value="" disabled selected>Selecione o Grafico</option>                                
-                            <option value="01">Producao Diaria</option>
-                            <option value="02">Producao Diaria Por Turno</option>
-                            <option value="03">Producao Diaria Por Maquina</option>
-                            <option value="04">Producao Diaria por Operador</option>
-                            <option value="05">Producao Mensal</option>
-                            <option value="06">Producao Mensal Por Turno</option>
-                            <option value="07">Producao Mensal Por Maquina</option>
-                            <option value="08">Producao Mensal Por Operador</option>
-                        </select>
-                        <label>Grafico</label>
-                    </div>                    
-                </div>            
+                    <form action="php/view/dashboard.php" method="POST">
+                        <div class="input-field col s4">                        
+                            <input id="data1" type="text" name="data1" class="validate" required> 
+                            <label for="data1">Data Inicial</label>
+                        </div>     
+                        <div class="input-field col s4">                        
+                            <input id="data2" type="text" name="data2" class="validate" required> 
+                            <label for="data2">Data Final</label>
+                        </div>                         
+                        <input type="submit" class="waves-effect waves-light btn" value="CARREGAR"/>                        
+                    </form>
+                </div>                                    
             </div>            
 	</section>	
         <script src="js/jquery.min.js"></script>

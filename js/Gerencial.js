@@ -4,6 +4,7 @@ $(document).ready(function(){
     $('.foto-voltar').hide();
     $('select').material_select();
     $('#dashboard').hide();
+    $('analit-2').hide();
     
     $(".estatic").click(function(){
         $('#container').show("slide");
@@ -25,29 +26,30 @@ $(document).ready(function(){
     $('#data2').mask('99/99/9999');
     
        
-    function geraGraficos(item){                              
+    function geraGraficos(item){                                      
         $.ajax({
-            ype: 'POST',          
-            data: {dados: item},                      
-            url: "php/control/controller_grafico.php",
-            dataType: 'json'            
+            method: 'POST',          
+            data: {item: item},                      
+            url: "php/control/dashboard.php",
+            dataType: 'json'                 
         });
     }
     
-     $("#gerar").click(function(){
-        var grafico = $('#grafico').val();
-        var data1 = $('#data1').val();
-        var newdata1 = data1.split("/").reverse().join("-");
+     $("#gerar").click(function(){        
+        var data1 = $('#data1').val();        
+        var newdata1 = data1.split("/").reverse().join("-");        
         var data2 = $('#data2').val();
-        var newdata2 = data2.split("/").reverse().join("-");
+        var newdata2 = data2.split("/").reverse().join("-");        
         var obj = new Object();        
         obj.acao = 5;                        
-        obj.grafico = grafico;
+        obj.grafico = $('#grafico').val();
         obj.data1 = newdata1;
         obj.data2 = newdata2;        
         obj = JSON.stringify(obj);                    
         geraGraficos(obj);        
     });
+    
+      
 });
 
 
