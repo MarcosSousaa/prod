@@ -34,8 +34,16 @@
       
         public function insere_dados($json){          
             $banco = new datb();
-            $oc_tr = implode(",",$json->{'oc'});                                    
-            $query = "INSERT INTO DADOS(DATA_PROD,EXTRUSORA,TURNO,OPERADOR,PROD_KG,APARA,REFILE,BORRA,ACABAMENTO,QTD_PARADA,TEMPO_PARADA,OC) VALUES ('".$json->{'data'}."','".$json->{'extrusora'}."','".$json->{'turno'}."','".$json->{'operador'}."','".$json->{'producao'}."','".$json->{'apara'}."','".$json->{'refile'}."','".$json->{'borra'}."','".$json->{'acabamento'}."','".$json->{'qtd_parada'}."','".$json->{'tempo_parada'}."','". $oc_tr."');";                      
+            date_default_timezone_set('America/Sao_Paulo');
+            $date = date('Y-m-d H:i');
+            if(!empty($json->{'oc'})){
+                $oc_tr = implode(",",$json->{'oc'});                                    
+            $query = "INSERT INTO DADOS(DATA_PROD,EXTRUSORA,TURNO,OPERADOR,PROD_KG,APARA,REFILE,BORRA,ACABAMENTO,QTD_PARADA,TEMPO_PARADA,OC,TIMESTAMP) VALUES ('".$json->{'data'}."','".$json->{'extrusora'}."','".$json->{'turno'}."','".$json->{'operador'}."','".$json->{'producao'}."','".$json->{'apara'}."','".$json->{'refile'}."','".$json->{'borra'}."','".$json->{'acabamento'}."','".$json->{'qtd_parada'}."','".$json->{'tempo_parada'}."','". $oc_tr."','".$date."');";                      
+            }
+            else {            
+                $query = "INSERT INTO DADOS(DATA_PROD,EXTRUSORA,TURNO,OPERADOR,PROD_KG,APARA,REFILE,BORRA,ACABAMENTO,QTD_PARADA,TEMPO_PARADA,TIMESTAMP) VALUES ('".$json->{'data'}."','".$json->{'extrusora'}."','".$json->{'turno'}."','".$json->{'operador'}."','".$json->{'producao'}."','".$json->{'apara'}."','".$json->{'refile'}."','".$json->{'borra'}."','".$json->{'acabamento'}."','".$json->{'qtd_parada'}."','".$json->{'tempo_parada'}."','".$date."');";                      
+            }
+                                
             return $banco ->sql_insert($query);            
         }
     
@@ -52,12 +60,14 @@
         }    
         
         public function altera_dados($json){
-            $banco = new datb();                                                        
-            if(empty($json->{'oc'})){                
-                $query = "UPDATE DADOS SET DATA_PROD='".$json->{'data'}."',EXTRUSORA='".$json->{'extrusora'}."',TURNO='".$json->{'turno'}."',OPERADOR='".$json->{'operador'}."',PROD_KG='".$json->{'producao'}."',APARA='".$json->{'apara'}."',REFILE='".$json->{'refile'}."',BORRA='".$json->{'borra'}."',ACABAMENTO='".$json->{'acabamento'}."',QTD_PARADA='".$json->{'qtd_parada'}."',TEMPO_PARADA='".$json->{'tempo_parada'}."',OC='".$json->{'oc'}."' WHERE ID_DADOS='".$json->{'id'}."';";                 
-            }else{                
+            $banco = new datb();
+            date_default_timezone_set('America/Sao_Paulo');
+            $date = date('Y-m-d H:i');
+            if(!empty($json->{'oc'})){                
                 $oc_tr = implode(",",$json->{'oc'});                
-                $query = "UPDATE DADOS SET DATA_PROD='".$json->{'data'}."',EXTRUSORA='".$json->{'extrusora'}."',TURNO='".$json->{'turno'}."',OPERADOR='".$json->{'operador'}."',PROD_KG='".$json->{'producao'}."',APARA='".$json->{'apara'}."',REFILE='".$json->{'refile'}."',BORRA='".$json->{'borra'}."',ACABAMENTO='".$json->{'acabamento'}."',QTD_PARADA='".$json->{'qtd_parada'}."',TEMPO_PARADA='".$json->{'tempo_parada'}."',OC='".$oc_tr."' WHERE ID_DADOS='".$json->{'id'}."';";            
+                $query = "UPDATE DADOS SET DATA_PROD='".$json->{'data'}."',EXTRUSORA='".$json->{'extrusora'}."',TURNO='".$json->{'turno'}."',OPERADOR='".$json->{'operador'}."',PROD_KG='".$json->{'producao'}."',APARA='".$json->{'apara'}."',REFILE='".$json->{'refile'}."',BORRA='".$json->{'borra'}."',ACABAMENTO='".$json->{'acabamento'}."',QTD_PARADA='".$json->{'qtd_parada'}."',TEMPO_PARADA='".$json->{'tempo_parada'}."',OC='".$oc_tr."',TIMESTAMP='".$date."' WHERE ID_DADOS='".$json->{'id'}."';";            
+            }else{                                
+                $query = "UPDATE DADOS SET DATA_PROD='".$json->{'data'}."',EXTRUSORA='".$json->{'extrusora'}."',TURNO='".$json->{'turno'}."',OPERADOR='".$json->{'operador'}."',PROD_KG='".$json->{'producao'}."',APARA='".$json->{'apara'}."',REFILE='".$json->{'refile'}."',BORRA='".$json->{'borra'}."',ACABAMENTO='".$json->{'acabamento'}."',QTD_PARADA='".$json->{'qtd_parada'}."',TEMPO_PARADA='".$json->{'tempo_parada'}."', TIMESTAMP='".$date."' WHERE ID_DADOS='".$json->{'id'}."';";                 
             }
             return $banco->sql_insert($query);
         }

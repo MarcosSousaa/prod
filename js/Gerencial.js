@@ -1,6 +1,4 @@
-$(document).ready(function(){
-    $('#estatisticas').hide();
-    $('#container').hide();
+$(document).ready(function(){        
     $('.foto-voltar').hide();
     $('select').material_select();
     $('#dashboard').hide();
