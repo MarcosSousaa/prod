@@ -58,7 +58,7 @@
             $data2 = $_SESSION['data2'];
             $banco = new datb();
             $linhas = 1;
-            $result = $banco->sql_grafico("SELECT SUM(PROD_KG)AS PRODUCAO,SUM(APARA + REFILE + BORRA + ACABAMENTO) AS PERDA,SUM(APARA)AS APARA,SUM(REFILE) AS REFILE,SUM(BORRA) AS BORRA,SUM(ACABAMENTO) AS ACABAMENTO,EXTRUSORA FROM DADOS WHERE DATA_PROD BETWEEN '".$data1."' AND '".$data2."' AND EXTRUSORA = '01' UNION SELECT SUM(PROD_KG) AS PRODUCAO,SUM(APARA + REFILE + BORRA + ACABAMENTO) AS PERDA,SUM(APARA)AS APARA,SUM(REFILE) AS REFILE,SUM(BORRA) AS BORRA,SUM(ACABAMENTO) AS ACABAMENTO,EXTRUSORA FROM DADOS WHERE DATA_PROD BETWEEN '".$data1."' AND '".$data2."' AND EXTRUSORA = '02' UNION SELECT SUM(PROD_KG) AS PRODUCAO,SUM(APARA + REFILE + BORRA + ACABAMENTO) AS PERDA,SUM(APARA)AS APARA,SUM(REFILE) AS REFILE,SUM(BORRA) AS BORRA,SUM(ACABAMENTO) AS ACABAMENTO,EXTRUSORA FROM DADOS WHERE DATA_PROD BETWEEN '".$data1."' AND '".$data2."' AND EXTRUSORA = '03' UNION SELECT SUM(PROD_KG) AS PRODUCAO,SUM(APARA + REFILE + BORRA + ACABAMENTO) AS PERDA,SUM(APARA)AS APARA,SUM(REFILE) AS REFILE,SUM(BORRA) AS BORRA,SUM(ACABAMENTO) AS ACABAMENTO,EXTRUSORA FROM DADOS WHERE DATA_PROD BETWEEN '".$data1."' AND '".$data2."' AND EXTRUSORA = '04' UNION SELECT SUM(PROD_KG) AS PRODUCAO,SUM(APARA + REFILE + BORRA + ACABAMENTO) AS PERDA,SUM(APARA)AS APARA,SUM(REFILE) AS REFILE,SUM(BORRA) AS BORRA,SUM(ACABAMENTO) AS ACABAMENTO,EXTRUSORA FROM DADOS WHERE DATA_PROD BETWEEN '".$data1."' AND '".$data2."' AND EXTRUSORA = '05';");
+            $result = $banco->sql_grafico("SELECT SUM(PROD_KG)AS PRODUCAO,SUM(APARA + REFILE + BORRA + ACABAMENTO) AS PERDA,SUM(APARA)AS APARA,SUM(REFILE) AS REFILE,SUM(BORRA) AS BORRA,SUM(ACABAMENTO) AS ACABAMENTO,EXTRUSORA FROM DADOS WHERE DATA_PROD BETWEEN '".$data1."' AND '".$data2."' GROUP BY EXTRUSORA;");
             if(mysqli_num_rows($result)> 0){
                 while($dados = mysqli_fetch_object($result)){
                     switch($linhas){
@@ -124,7 +124,7 @@
             $data2 = $_SESSION['data2'];
             $banco = new datb();
             $linhas = 1;
-            $result = $banco->sql_grafico("SELECT SUM(PROD_KG)AS PRODUCAO,SUM(APARA + REFILE + BORRA + ACABAMENTO) AS PERDA,TURNO FROM DADOS WHERE DATA_PROD BETWEEN '".$data1."' AND '".$data2."' AND TURNO = 'MANHA' UNION SELECT SUM(PROD_KG) AS PRODUCAO,SUM(APARA + REFILE + BORRA + ACABAMENTO) AS PERDA,TURNO FROM DADOS WHERE DATA_PROD BETWEEN '".$data1."' AND '".$data2."' AND TURNO = 'TARDE' UNION SELECT SUM(PROD_KG) AS PRODUCAO,SUM(APARA + REFILE + BORRA + ACABAMENTO) AS PERDA,TURNO FROM DADOS WHERE DATA_PROD BETWEEN '".$data1."' AND '".$data2."' AND TURNO = 'NOITE';");
+            $result = $banco->sql_grafico("SELECT SUM(PROD_KG)AS PRODUCAO,SUM(APARA + REFILE + BORRA + ACABAMENTO) AS PERDA,SUM(APARA) AS APARA,SUM(REFILE) AS REFILE,SUM(BORRA) AS BORRA,SUM(ACABAMENTO) AS ACABAMENTO,TURNO FROM DADOS WHERE DATA_PROD BETWEEN '".$data1."' AND '".$data2."' AND TURNO = 'MANHA' UNION SELECT SUM(PROD_KG) AS PRODUCAO,SUM(APARA + REFILE + BORRA + ACABAMENTO) AS PERDA,SUM(APARA) AS APARA,SUM(REFILE) AS REFILE,SUM(BORRA) AS BORRA,SUM(ACABAMENTO) AS ACABAMENTO,TURNO FROM DADOS WHERE DATA_PROD BETWEEN '".$data1."' AND '".$data2."' AND TURNO = 'TARDE' UNION SELECT SUM(PROD_KG) AS PRODUCAO,SUM(APARA + REFILE + BORRA + ACABAMENTO) AS PERDA,SUM(APARA) AS APARA,SUM(REFILE) AS REFILE,SUM(BORRA) AS BORRA,SUM(ACABAMENTO) AS ACABAMENTO,TURNO FROM DADOS WHERE DATA_PROD BETWEEN '".$data1."' AND '".$data2."' AND TURNO = 'NOITE';");
             if(mysqli_num_rows($result)> 0){
                 while($dados = mysqli_fetch_object($result)){
                     switch($linhas){
@@ -132,16 +132,28 @@
                             $this->linha[6][0] = $dados->PRODUCAO;
                             $this->linha[6][1] = $dados->TURNO;
                             $this->linha[6][2] = $dados->PERDA;
+                            $this->linha[6][3] = $dados->APARA;
+                            $this->linha[6][4] = $dados->REFILE;
+                            $this->linha[6][5] = $dados->BORRA;
+                            $this->linha[6][6] = $dados->ACABAMENTO;
                         break;
                         case 2:
                             $this->linha[7][0] = $dados->PRODUCAO;
                             $this->linha[7][1] = $dados->TURNO;
                             $this->linha[7][2] = $dados->PERDA;
+                            $this->linha[7][3] = $dados->APARA;
+                            $this->linha[7][4] = $dados->REFILE;
+                            $this->linha[7][5] = $dados->BORRA;
+                            $this->linha[7][6] = $dados->ACABAMENTO;
                         break;
                         case 3:
                             $this->linha[8][0] = $dados->PRODUCAO;
                             $this->linha[8][1] = $dados->TURNO;   
                             $this->linha[8][2] = $dados->PERDA;
+                            $this->linha[8][3] = $dados->APARA;
+                            $this->linha[8][4] = $dados->REFILE;
+                            $this->linha[8][5] = $dados->BORRA;
+                            $this->linha[8][6] = $dados->ACABAMENTO;
                     }
                     $linhas++;
                 }                

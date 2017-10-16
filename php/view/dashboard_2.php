@@ -1,35 +1,13 @@
 <?php            
-    include '../model/graficos.php';
+    include '../model/graficos_2.php';             
+    header('Content-Type: application/json', true);    
+    $json = json_decode($_POST['item']);
+    
     /* INSTACIA A CLASSE GRAFICOS */
     $geraGrafico = new graficos();
-    /*  RECEBE DADOS VIA POST */
-    $data1 = $_POST['data1'];        
-    $data2 = $_POST['data2'];    
-    
-    /* CORRIGI DADAS PADRAO MYSQL*/
-    $newdata1 = str_replace("/", "-", $data1);
-    $newdata_1 = date('Y-m-d', strtotime($newdata1));    
-    $newdata2 = str_replace("/", "-", $data2);
-    $newdata_2 = date('Y-m-d', strtotime($newdata2));
-    /* CRIA AS SESSION */
-    $_SESSION['data1'] = $newdata_1;
-    $_SESSION['data2'] = $newdata_2;
-    if($data1 >= '25/09/2017'){
-    $geraGrafico->geraGrafico0();
-    $geraGrafico->geraGrafico1();
-    $geraGrafico->geraGrafico2();
-    $geraGrafico->buscaData();
-    $grafico = $_SESSION['array'];
-    $dt = date('d-m-Y', strtotime($grafico[0][5]));
-    $dt2 = str_replace("-", "/", $dt);
-    
-    
-    }
-    else {
-        echo "<script>alert('A DATA INCIAL DEVE SER MAIOR QUE A DATA DE 25/09/2017, POR FAVOR CORRIGIR A DATA')</script>";
-        echo "<script>$(document).ready(function(){location.href();});</script>";
-    }
-       
+          
+    echo
+    $geraGrafico->geraGrafico1($json->{'data1'},$json->{'data2'});           
 ?>    
 
 <!DOCTYPE html>
