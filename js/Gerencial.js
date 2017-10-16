@@ -109,7 +109,12 @@ $(document).ready(function(){
             url: "php/view/dashboard_2.php",
             dataType: 'json'                 
         }).done(function (result){
-            alert('vai gerar o grafico');
+            if(result){
+                alert('vai gerar o grafico');
+            }
+            else {
+                alert('NÃO VAI GERAR O GRAFICO');
+            }
         });
     }
 });
