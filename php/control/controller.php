@@ -39,6 +39,22 @@
         
     }
     
+    else if($json->{'acao'} == 6){
+        require_once 'dados.php';
+        $dados = new dados();
+        $result = $dados->geraGrafico($json);        
+        echo json_encode($result);         
+        
+    }
+    
+    else if($json->{'acao'} == 7){
+        require_once 'dados.php';
+        $dados = new dados();
+        $result2 = $dados->geraGrafico2($json);        
+        echo json_encode($result2);         
+        
+    }
+    
     
  
 

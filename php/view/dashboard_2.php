@@ -1,12 +1,11 @@
 <?php            
     include '../model/graficos_2.php';             
     header('Content-Type: application/json', true);    
-    $json = json_decode($_POST['item']);
-    
+    $json = json_decode($_POST['item']);   
     /* INSTACIA A CLASSE GRAFICOS */
     $geraGrafico = new graficos();
               
-    $geraGrafico->geraGrafico1($json->{'data1'},$json->{'data2'});           
+    $geraGrafico->geraGrafico1($json);           
 ?>    
 
 <!DOCTYPE html>

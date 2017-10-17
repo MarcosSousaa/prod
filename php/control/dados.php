@@ -76,7 +76,27 @@
             $banco = new datb();
             $query = "DELETE  FROM DADOS WHERE ID_DADOS=".$id.";";
             return $banco->sql_insert($query);            
-        }                       
+        } 
+        
+        public function geraGrafico($json){            
+            $banco = new datb();            
+            $result = $banco->sql_grafico("SELECT SUM(PROD_KG)AS PRODUCAO,SUM(APARA + REFILE + BORRA + ACABAMENTO) AS PERDA,SUM(APARA)AS APARA,SUM(REFILE) AS REFILE,SUM(BORRA) AS BORRA,SUM(ACABAMENTO) AS ACABAMENTO,EXTRUSORA FROM DADOS WHERE DATA_PROD BETWEEN '".$json->{'data1'}."' AND '".$json->{'data2'}."' GROUP BY EXTRUSORA;");
+            foreach($result as $row){                
+                $data[] = $row;               
+            }
+            return $data;   
+        }
+        
+         public function geraGrafico2($json){            
+            $banco = new datb();            
+            $result = $banco->sql_grafico("SELECT SUM(PROD_KG)AS PRODUCAO,SUM(APARA + REFILE + BORRA + ACABAMENTO) AS PERDA,SUM(APARA)AS APARA,SUM(REFILE) AS REFILE,SUM(BORRA) AS BORRA,SUM(ACABAMENTO) AS ACABAMENTO,TURNO FROM DADOS WHERE DATA_PROD BETWEEN '".$json->{'data1'}."' AND '".$json->{'data2'}."' GROUP BY TURNO;");
+            foreach($result as $row){
+                $data[] = $row;                
+            }
+            return $data;   
+        }
+        
+
       
     }
 
