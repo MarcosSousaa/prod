@@ -25,6 +25,18 @@ ul,li{list-style: none;margin: 0;padding:0;}
     display: table;
 }
 
+#right-conteudo2{
+    float:left;
+    width:1100px;
+    box-shadow:2px 2px 5px -2px;
+    border:1px solid #DEDEDE;
+    height:550px;
+    margin-left: 20px;
+    margin-top: 20px;
+    background: #ecf0f1;
+    display: table;
+}
+
 /* MECHENDO UL DO MENU */
 #left-menu ul{
     margin-top: 50px
@@ -162,6 +174,13 @@ div#produto  {
 
 	/* CONTEUDO DA DA DIV FORNECEDORES*/
 div#estatisticas  { 	
+	margin: 0px;
+	padding: 0px;
+	width: 1000px;
+	height: 40px;
+}
+
+div#estatisticas2  { 	
 	margin: 0px;
 	padding: 0px;
 	width: 1000px;

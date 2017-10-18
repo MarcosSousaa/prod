@@ -43,16 +43,38 @@
         require_once 'dados.php';
         $dados = new dados();
         $result = $dados->geraGrafico($json);        
-        echo json_encode($result);         
-        
+        echo json_encode($result);                 
     }
     
     else if($json->{'acao'} == 7){
         require_once 'dados.php';
         $dados = new dados();
-        $result2 = $dados->geraGrafico2($json);        
-        echo json_encode($result2);         
-        
+        $result = $dados->geraGrafico1($json);        
+        echo json_encode($result);                 
+    }
+    else if($json->{'acao'} == 8){
+        require_once 'dados.php';
+        $dados = new dados();
+        $result = $dados->geraGrafico2($json);        
+        echo json_encode($result);                 
+    }
+    else if($json->{'acao'} == 9){
+        require_once 'dados.php';
+        $dados = new dados();
+        $result = $dados->anualGrafico0($json);        
+        echo json_encode($result);                 
+    }
+    else if($json->{'acao'} == 10){
+        require_once 'dados.php';
+        $dados = new dados();
+        $result = $dados->geraGrafico2($json);        
+        echo json_encode($result);                 
+    }
+    else if($json->{'acao'} == 11){
+        require_once 'dados.php';
+        $dados = new dados();
+        $result = $dados->geraGrafico2($json);        
+        echo json_encode($result);                 
     }
     
     

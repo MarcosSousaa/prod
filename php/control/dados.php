@@ -80,23 +80,40 @@
         
         public function geraGrafico($json){            
             $banco = new datb();            
-            $result = $banco->sql_grafico("SELECT SUM(PROD_KG)AS PRODUCAO,SUM(APARA + REFILE + BORRA + ACABAMENTO) AS PERDA,SUM(APARA)AS APARA,SUM(REFILE) AS REFILE,SUM(BORRA) AS BORRA,SUM(ACABAMENTO) AS ACABAMENTO,EXTRUSORA FROM DADOS WHERE DATA_PROD BETWEEN '".$json->{'data1'}."' AND '".$json->{'data2'}."' GROUP BY EXTRUSORA;");
-            foreach($result as $row){                
-                $data[] = $row;               
-            }
-            return $data;   
-        }
-        
-         public function geraGrafico2($json){            
-            $banco = new datb();            
-            $result = $banco->sql_grafico("SELECT SUM(PROD_KG)AS PRODUCAO,SUM(APARA + REFILE + BORRA + ACABAMENTO) AS PERDA,SUM(APARA)AS APARA,SUM(REFILE) AS REFILE,SUM(BORRA) AS BORRA,SUM(ACABAMENTO) AS ACABAMENTO,TURNO FROM DADOS WHERE DATA_PROD BETWEEN '".$json->{'data1'}."' AND '".$json->{'data2'}."' GROUP BY TURNO;");
+            $result = $banco->sql_grafico("SELECT SUM(PROD_KG)AS PRODUCAO,SUM(APARA + REFILE + BORRA + ACABAMENTO) AS PERDA,SUM(APARA)AS APARA,SUM(REFILE) AS REFILE,SUM(BORRA) AS BORRA,SUM(ACABAMENTO) AS ACABAMENTO,(SELECT DATA_PROD FROM DADOS WHERE DATA_PROD BETWEEN '".$json->{'data1'}."' AND '".$json->{'data2'}."' ORDER BY DATA_PROD DESC LIMIT 1) AS ULTIMADATA FROM DADOS WHERE DATA_PROD BETWEEN '".$json->{'data1'}."' AND '".$json->{'data2'}."';");
             foreach($result as $row){
                 $data[] = $row;                
             }
             return $data;   
         }
         
-
+        public function geraGrafico1($json){            
+            $banco = new datb();            
+            $result = $banco->sql_grafico("SELECT SUM(PROD_KG)AS PRODUCAO,SUM(APARA + REFILE + BORRA + ACABAMENTO) AS PERDA,SUM(APARA)AS APARA,SUM(REFILE) AS REFILE,SUM(BORRA) AS BORRA,SUM(ACABAMENTO) AS ACABAMENTO,TURNO,(SELECT DATA_PROD FROM DADOS WHERE DATA_PROD BETWEEN '".$json->{'data1'}."' AND '".$json->{'data2'}."' ORDER BY DATA_PROD DESC LIMIT 1) AS ULTIMADATA FROM DADOS WHERE DATA_PROD BETWEEN '".$json->{'data1'}."' AND '".$json->{'data2'}."' GROUP BY TURNO;");
+            foreach($result as $row){
+                $data[] = $row;                
+            }
+            return $data;   
+        }
+                
+        public function geraGrafico2($json){            
+            $banco = new datb();            
+            $result = $banco->sql_grafico("SELECT SUM(PROD_KG)AS PRODUCAO,SUM(APARA + REFILE + BORRA + ACABAMENTO) AS PERDA,SUM(APARA)AS APARA,SUM(REFILE) AS REFILE,SUM(BORRA) AS BORRA,SUM(ACABAMENTO) AS ACABAMENTO,EXTRUSORA,(SELECT DATA_PROD FROM DADOS WHERE DATA_PROD BETWEEN '".$json->{'data1'}."' AND '".$json->{'data2'}."' ORDER BY DATA_PROD DESC LIMIT 1) AS ULTIMADATA FROM DADOS WHERE DATA_PROD BETWEEN '".$json->{'data1'}."' AND '".$json->{'data2'}."' GROUP BY EXTRUSORA;");
+            foreach($result as $row){                
+                $data[] = $row;               
+            }
+            return $data;   
+        }
+                 
+        
+        public function anualGrafico0($json){
+            $banco = new datb();            
+            $result = $banco->sql_grafico("SELECT YEAR(DATA_PROD) AS ANO,MONTHNAME(DATA_PROD) AS NOME_MES,SUM(PROD_KG) AS PRODUCAO,SUM(APARA + REFILE + BORRA + ACABAMENTO) AS PERDA FROM DADOS WHERE YEAR(DATA_PROD) IN('2016','2017') GROUP BY MONTHNAME(DATA_PROD) ORDER BY YEAR(DATA_PROD),MONTH(DATA_PROD);");
+            foreach($result as $row){                
+                $data[] = $row;               
+            }
+            return $data;   
+        }
       
     }
 
