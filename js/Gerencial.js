@@ -401,7 +401,7 @@ $(document).ready(function(){
            data: {item: item},
            url: "php/control/controller.php",
            dataType: 'json',
-        }).done(function(result){
+        }).done(function(result){                               
             $("#grafico_anual0").show();
             $("#grafico_anual1").hide();
             $("#grafico_anual2").hide();
@@ -412,7 +412,7 @@ $(document).ready(function(){
             var cor1 = ['rgba(41, 128, 185,1.0)', 'rgba(41, 128, 185,1.0)', 'rgba(41, 128, 185,1.0)','rgba(41, 128, 185,1.0)', 'rgba(41, 128, 185,1.0)', 'rgba(41, 128, 185,1.0)','rgba(41, 128, 185,1.0)', 'rgba(41, 128, 185,1.0)', 'rgba(41, 128, 185,1.0)'];
             var cor2 = ['rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)'];
             var cor3 = ['rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)'];
-            var cor4 = ['rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)',];
+            var cor4 = ['rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)',];                       
             for(var i in result){                    
                 producao.push(result[i].PRODUCAO);                                                                                
                 perda.push(result[i].PERDA);
@@ -420,220 +420,69 @@ $(document).ready(function(){
                 mes.push(result[i].NOME_MES);              
                 var soma1 = parseFloat(result[i].PRODUCAO) + parseFloat(result[i].PERDA);
                 var percentual1 = (parseFloat(result[i].PERDA) * 100) / soma1;                
-                $("#tabela7 tbody").append("<tr><td>"+result[i].ANO+"</td><td>"+result[i].NOME_MES+"</td><td>"+result[i].PRODUCAO+ "</td><td>"+result[i].PERDA+"</td><td style='color:blue;'>"+soma1.toFixed(3)+"</td><td style='color: red;'><strong>"+percentual1.toFixed(1)+"%</strong></td>");                
-                }                                
-                var geralAnualData = {
-                    labels: mes,
-                    datasets: [
-                        {
-                            label: 'Producao',
-                            data: producao,
-                            backgroundColor: cor1,
-                        },
-                        {
-                            label: 'Perda',
-                            data: perda,
-                            backgroundColor: cor2, 
-                        }
-                    ]
+                $("#tabela7 tbody").append("<tr><td>"+result[i].ANO+"</td><td>"+result[i].NOME_MES+"</td><td>"+result[i].PRODUCAO+ "</td><td>"+result[i].PERDA+"</td><td style='color:blue;'>"+soma1.toFixed(3)+"</td><td style='color: red;'><strong>"+percentual1.toFixed(1)+"%</strong></td>");                                                                
+                
+            }            
+                $(".comparar").append("<a class='waves-effect waves-light btn btn-adc'>one</a>")
+            function remove_duplicates_safe(arr) {
+                var seen = {};
+                var ret_arr = [];
+                for (var i = 0; i < arr.length; i++) {
+                    if (!(arr[i] in seen)) {
+                        ret_arr.push(arr[i]);
+                        seen[arr[i]] = true;
+                    }
                 }
-                
-                
-                var anu0 = $("#mycanvasanual0");
-                var doughnutGraph = new Chart(anu0, {
-                    type: 'bar',
-                    data: geralAnualData
-                });                                
+                return ret_arr;
+            }
+             var ano2 = remove_duplicates_safe(ano);
+            var geralAnualData = {
+                labels: mes,
+                datasets: [
+                    {
+                        label: "Producao "+ano2,
+                        data: producao,
+                        backgroundColor: cor1,
+                    },
+                    {
+                        label: "Perda "+ano2,
+                        data: perda,
+                        backgroundColor: cor2,
+                    }
+                    
+                ]
+                };
+            var anu0 = $("#mycanvasanual0");  
+            var barAnual = new Chart(anu0, {
+                type: 'bar',
+                data: geralAnualData
+            });
+         $('.comparar').delegate(".btn-adc","click",function(){
+    var newDataset = {        
+        label: "Grafico 2",
+        backgroundColor: 'rgba(99, 255, 132, 0.2)',
+        borderColor: 'rgba(99, 255, 132, 1)',
+        borderWidth: 1,
+        data: [60300, 200500],
+    };
+    var newDataset2 = {        
+        label: "Grafico 2",
+        backgroundColor: 'rgba(100, 155, 132, 0.2)',        
+        borderWidth: 1,
+        data: [65300, 200800],
+    };
+    geralAnualData.datasets.push(newDataset);
+    geralAnualData.datasets.push(newDataset2);
+    barAnual.update();
+    });
         }).fail(function(result){
             alert('NÃO RODOU');
         });
     }
-    // GRAFICO POR TURNO
-    function geraGrafico1(item){
-        $.ajax({
-            type: 'POST',          
-            data: {item: item},                         
-            url: "php/control/controller.php",
-            dataType: 'json',
-            }).done(function(result2){                     
-                $("#grafico1").show();
-                $("#grafico2").hide();
-                $("#grafico0").hide();
-                var producao2 = [];
-                var apara2 = [];
-                var refile2 = [];
-                var borra2 = [];
-                var acabamento2 = [];
-                var perda2 = [];
-                var turno2 = [];
-                var ultimadata2;
-                var cor1 = ['rgba(41, 128, 185,1.0)', 'rgba(41, 128, 185,1.0)', 'rgba(41, 128, 185,1.0)','rgba(41, 128, 185,1.0)', 'rgba(41, 128, 185,1.0)', 'rgba(41, 128, 185,1.0)','rgba(41, 128, 185,1.0)', 'rgba(41, 128, 185,1.0)', 'rgba(41, 128, 185,1.0)'];
-                var cor2 = ['rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)'];
-                var cor3 = ['rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)'];
-                var cor4 = ['rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)',];
-                for(var i in result2){
-                    turno2.push("Turno " + result2[i].TURNO);
-                    producao2.push(result2[i].PRODUCAO);
-                    apara2.push(result2[i].APARA);
-                    refile2.push(result2[i].REFILE);
-                    borra2.push(result2[i].BORRA);
-                    acabamento2.push(result2[i].ACABAMENTO);
-                    perda2.push(result2[i].PERDA);
-                    ultimadata2 = result2[i].ULTIMADATA;
-                    var soma3 = parseFloat(result2[i].PRODUCAO) + parseFloat(result2[i].PERDA);
-                    var soma4 = parseFloat(result2[i].APARA) + parseFloat(result2[i].REFILE) + parseFloat(result2[i].BORRA) + parseFloat(result2[i].ACABAMENTO);
-                    $("#tabela3 tbody").append("<tr><td>"+result2[i].TURNO+ "</td><td>"+result2[i].PRODUCAO+ "</td><td>"+result2[i].PERDA+"</td><td style='color:blue;'>"+soma3.toFixed(3)+"</td>");
-                    $("#tabela4 tbody").append("<tr><td>"+result2[i].TURNO+ "</td><td>"+result2[i].APARA+ "</td><td>"+result2[i].REFILE+ "</td><td>"+result2[i].BORRA+ "</td><td>"+ result2[i].ACABAMENTO+"</td><td style='color:blue;'>"+soma4.toFixed(3)+"</td>");                        
-                }
-                var data = ultimadata2.split("-").reverse().join("/");                        
-                $('.mensagem2').html("ULTIMA DATA PREENCHIDA COM DADOS, CONFORME O FILTRO SOLICITADO " + data);
-                var turnoData = {
-                    labels: turno2,
-                    datasets: [
-                        {
-                            label: 'Producao',
-                            data: producao2,
-                            backgroundColor: cor1,
-                        },
-                        {
-                            label: 'Perda',
-                            data: perda2,
-                            backgroundColor: cor2, 
-                        }
-                    ]
-                }                    
-                var turno2Data = {
-                    labels: turno2,
-                    datasets : [
-                        {
-                            label: 'Apara',
-                            data: apara2,
-                            backgroundColor: cor1,
-                        },
-                        {
-                            label: 'Refile',
-                            data: refile2,
-                            backgroundColor: cor2,
-                        },
-                        {
-                            label: 'Borra',
-                            data: borra2,
-                            backgroundColor: cor3,
-                        },
-                        {
-                            label: 'Acabamento',
-                            data: acabamento2,
-                            backgroundColor: cor4,
-                        },                                                
-                    ]
-                };                    
-                var ctx3 = $("#mycanvas3");
-                var barGraph = new Chart(ctx3, {
-                    type: 'bar',
-                    data: turnoData
-                });
-                var ctx4 = $("#mycanvas4");
-                var barGraph = new Chart(ctx4, {
-                    type: 'bar',
-                    data: turno2Data
-                });
-            });
-    }
-    // GRAFICO POR EXTRUSORA
-    function geraGrafico2(item){        
-        $.ajax({
-            type: 'POST',          
-            data: {item: item},                         
-            url: "php/control/controller.php",
-            dataType: 'json',
-        }).done(function(result){                
-            $("#grafico2").show();
-            $("#grafico1").hide();
-            $("#grafico0").hide();
-            var extrusora = [];
-            var producao = [];
-            var apara = [];
-            var refile = [];
-            var borra = [];
-            var acabamento = [];
-            var perda = [];
-            var cor1 = ['rgba(41, 128, 185,1.0)', 'rgba(41, 128, 185,1.0)', 'rgba(41, 128, 185,1.0)','rgba(41, 128, 185,1.0)', 'rgba(41, 128, 185,1.0)', 'rgba(41, 128, 185,1.0)','rgba(41, 128, 185,1.0)', 'rgba(41, 128, 185,1.0)', 'rgba(41, 128, 185,1.0)'];
-            var cor2 = ['rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)'];
-            var cor3 = ['rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)'];
-            var cor4 = ['rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)',];
-            var ultimadata1;
-            for(var i in result){
-                extrusora.push("Extrusora " + result[i].EXTRUSORA);
-                producao.push(result[i].PRODUCAO);
-                apara.push(result[i].APARA);
-                refile.push(result[i].REFILE);
-                borra.push(result[i].BORRA);
-                acabamento.push(result[i].ACABAMENTO);
-                perda.push(result[i].PERDA);
-                ultimadata1 = result[i].ULTIMADATA;
-                var soma1 = parseFloat(result[i].PRODUCAO) + parseFloat(result[i].PERDA);
-                var soma2 = parseFloat(result[i].APARA) + parseFloat(result[i].REFILE) + parseFloat(result[i].BORRA) + parseFloat(result[i].ACABAMENTO);
-                $("#tabela5 tbody").append("<tr><td>"+result[i].EXTRUSORA+ "</td><td>"+result[i].PRODUCAO+ "</td><td>"+result[i].PERDA+"</td><td style='color:blue;'>"+soma1.toFixed(3)+"</td>");
-                $("#tabela6 tbody").append("<tr><td>"+result[i].EXTRUSORA+ "</td><td>"+result[i].APARA+ "</td><td>"+result[i].REFILE+ "</td><td>"+result[i].BORRA+ "</td><td>"+ result[i].ACABAMENTO+"</td><td style='color:blue;'>"+soma2.toFixed(3)+"</td>");
-            }
-            var data = ultimadata1.split("-").reverse().join("/");                        
-            $('.mensagem1').html("ULTIMA DATA PREENCHIDA COM DADOS, CONFORME O FILTRO SOLICITADO " + data);
-            var extdata = {
-                labels: extrusora,
-                datasets : [
-                    {
-                        label: 'Producao',
-                        data: producao,
-                        backgroundColor: cor1,
+    
+   
+           
 
-                    },
-                    {
-                        label: 'Perda',
-                        data: perda,
-                        backgroundColor: cor2,
-                    }
-                ]
-            };                
-            var ext2data = {
-                labels: extrusora,
-                datasets : [
-                    {
-                        label: 'Apara',
-                        data: apara,
-                        backgroundColor: cor1,
-                    },
-                    {
-                        label: 'Refile',
-                        data: refile,
-                        backgroundColor: cor2,
-                    },
-                    {
-                        label: 'Borra',
-                        data: borra,
-                        backgroundColor: cor3,
-                    },
-                    {
-                        label: 'Acabamento',
-                        data: acabamento,
-                        backgroundColor: cor4,
-                    },                                                
-                ]
-            };                
-            var ctx = $("#mycanvas");
-            var barGraph = new Chart(ctx, {
-                type: 'bar',
-                data: extdata
-            });
-            var ctx2 = $("#mycanvas2");
-            var barGraph2 = new Chart(ctx2,{
-                type: 'bar',
-                data: ext2data
-            });                
-        }).fail(function(result){
-            alert('NÃO VAI GERAR O GRAFICO');
-            console.log(result);
-        });                  
-    }
 });
 
 

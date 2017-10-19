@@ -108,7 +108,7 @@
         
         public function anualGrafico0($json){
             $banco = new datb();            
-            $result = $banco->sql_grafico("SELECT YEAR(DATA_PROD) AS ANO,MONTHNAME(DATA_PROD) AS NOME_MES,SUM(PROD_KG) AS PRODUCAO,SUM(APARA + REFILE + BORRA + ACABAMENTO) AS PERDA FROM DADOS WHERE YEAR(DATA_PROD) IN('2016','2017') GROUP BY MONTHNAME(DATA_PROD) ORDER BY YEAR(DATA_PROD),MONTH(DATA_PROD);");
+            $result = $banco->sql_grafico("SELECT YEAR(DATA_PROD) AS ANO,MONTHNAME(DATA_PROD) AS NOME_MES,SUM(PROD_KG) AS PRODUCAO,SUM(APARA + REFILE + BORRA + ACABAMENTO) AS PERDA FROM DADOS WHERE YEAR(DATA_PROD) IN('2017') GROUP BY MONTHNAME(DATA_PROD) ORDER BY YEAR(DATA_PROD),MONTH(DATA_PROD);");
             foreach($result as $row){                
                 $data[] = $row;               
             }
