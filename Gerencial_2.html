@@ -37,6 +37,7 @@
                         <input id="data_2" type="text" name="data_2" class="validate" required> 
                         <label for="data_2">Data Final</label>
                     </div>
+                    <!--
                     <div class="input-field col s6">
                         <select id="grafic" name="grafic" class="validate">
                             <option value="" disabled selected>Selecione o Grafico</option>
@@ -45,7 +46,9 @@
                             <option value="02">Por Extrusora</option>                            
                         </select>
                         <label>Grafico</label>
-                    </div>                     
+                    </div>
+                    -->
+                    <a class="waves-effect waves-light btn" id="btn_gerar">GERAR</a>
                 </div>                                    
             </div>
             <div id="grafico0">
@@ -169,7 +172,7 @@
                     <div class="col s7">
                         <canvas id="mycanvas2"></canvas>
                     </div>
-                    <div class="col s3">
+                    <div class="col s2">
                         <table class="striped" id="tabela6">
                             <thead>
                                 <th>Extrusora</th>
@@ -203,6 +206,7 @@
                         <input id="ano_2" type="text" name="ano_2" class="validate" required> 
                         <label for="ano_2">Ano Final</label>
                     </div>
+                    <!--
                     <div class="input-field col s6">
                         <select id="grafic_anual" name="grafic_anual" class="validate">
                             <option value="" disabled selected>Selecione o Grafico</option>
@@ -211,37 +215,74 @@
                             <option value="02">Por Extrusora</option>                            
                         </select>
                         <label>Grafico</label>
-                    </div>                     
+                    </div>
+                    -->
+                    <a class="waves-effect waves-light btn" id="btn_gerar2">GERAR</a>
                 </div>
-               <div id="grafico_anual0">
-                <div class="row">
-                    <div class="col s9">
-                        <h5 class="mensagem0"></h5>
-                    </div>             
-                    <div class="col s4">
+            </div>
+            <div id="grafico_anual0">
+                <div class="row">                   
+                    <div class="col s12">
                         <canvas id="mycanvasanual0"></canvas>
                     </div>
-                    <div class="col s3">
+                    
+                </div>
+                   <div class="row">
+                       <div class="col s3">
                         <table class="striped" id="tabela7">
                             <thead>
+                                <th>Tipo</th>
                                 <th>Ano</th>
-                                <th>Mes</th>
-                                <th>Producao (Boa)</th>
-                                <th>Producao (Perda)</th>
-                                <th>Total Produzido</th>
-                                <th>Percentual Perda</th>
+                                <th>Jan</th>                                
+                                <th>Fev</th>
+                                <th>Mar</th>                                
+                                <th>Abr</th>                                
+                                <th>Mai</th>                                
+                                <th>Jun</th>                                
+                                <th>Jul</th>                                
+                                <th>Ago</th>                                
+                                <th>Set</th>                                
+                                <th>Out</th>                                
+                                <th>Nov</th>                                
+                                <th>Dez</th>                                
+                                <th>Total</th>                                
                             </thead>
                              <tbody>
 
                             </tbody>
                         </table>                   
-                        <div class="comparar">
-                            
-                        </div>
+                        
                     </div>
-                </div>                
+                </div>
+                <div class="row">
+                    <div class="col s3">
+                        <table class="striped" id="tabela8">
+                            <thead>
+                                <th>Tipo</th>
+                                <th>Ano</th>
+                                <th>Jan</th>                                
+                                <th>Fev</th>
+                                <th>Mar</th>                                
+                                <th>Abr</th>                                
+                                <th>Mai</th>                                
+                                <th>Jun</th>                                
+                                <th>Jul</th>                                
+                                <th>Ago</th>                                
+                                <th>Set</th>                                
+                                <th>Out</th>                                
+                                <th>Nov</th>                                
+                                <th>Dez</th>                                
+                                <th>Total</th>                                
+                            </thead>
+                             <tbody>
+
+                            </tbody>
+                        </table>                   
+                        
+                    </div>
+                   </div>
             </div>            
-            </div>
+            
         </section>
         <script src="js/jquery.min.js"></script>
         <script src="js/Chart.js"></script>
