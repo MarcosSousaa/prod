@@ -407,9 +407,7 @@ $(document).ready(function(){
             var barAnual = new Chart(anu0, {
                 type: 'bar',
                 data: geralAnualData
-            });                        
-            var total_produzido = [];
-            var total_perda = [];
+            });                                    
             var ano = [];                                    
             var jan = [];
             var fev = [];
@@ -444,6 +442,28 @@ $(document).ready(function(){
             cor[5] = ['rgba(22, 160, 133,1.0)','rgba(22, 160, 133,1.0)','rgba(22, 160, 133,1.0)','rgba(22, 160, 133,1.0)','rgba(22, 160, 133,1.0)','rgba(22, 160, 133,1.0)','rgba(22, 160, 133,1.0)','rgba(22, 160, 133,1.0)','rgba(22, 160, 133,1.0)','rgba(22, 160, 133,1.0)','rgba(22, 160, 133,1.0)','rgba(22, 160, 133,1.0)',];
             var x = 0;
             var z = 0;
+            function number_format( numero, decimal, decimal_separador, milhar_separador ){ 
+                numero = (numero + '').replace(/[^0-9+\-Ee.]/g, '');
+                var n = !isFinite(+numero) ? 0 : +numero,
+                prec = !isFinite(+decimal) ? 0 : Math.abs(decimal),
+                sep = (typeof milhar_separador === 'undefined') ? ',' : milhar_separador,
+                dec = (typeof decimal_separador === 'undefined') ? '.' : decimal_separador,
+                s = '',
+                toFixedFix = function (n, prec) {
+                    var k = Math.pow(10, prec);
+                    return '' + Math.round(n * k) / k;
+                };  
+                s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
+                if (s[0].length > 3) {
+                    s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+                }
+                if ((s[1] || '').length < prec) {
+                    s[1] = s[1] || '';
+                    s[1] += new Array(prec - s[1].length + 1).join('0');
+                }
+                return s.join(dec);
+            }
+
             for(var i in result){                
                 while(x <= i){                
                     ano = result[i].ano;                    
@@ -470,7 +490,7 @@ $(document).ready(function(){
                     perda_set = result[i].perda_setembro;
                     perda_out = result[i].perda_outubro;
                     perda_nov = result[i].perda_novembro;
-                    perda_dez = result[i].perda_dezembro;                                          
+                    perda_dez = result[i].perda_dezembro;                    
                     var dataset = {
                         label: "Producao "+ ano,
                         backgroundColor: cor[z],
@@ -489,30 +509,12 @@ $(document).ready(function(){
                     barAnual.update();
                     x = x + 1;
                     z = z + 2;
-                    $("#tabela7 tbody").append("<tr><td>Producao</td><td>"+ano+"</td><td>"+jan+"</td><td>"+fev+"</td><td>"+mar+ "</td><td>"+abr+"</td><td>"+mai+"</td><td>"+jun+"</td><td>"+jul+"</td><td>"+ago+ "</td><td>"+set+"</td><td>"+out+"</td><td>"+nov+"</td><td>"+dez+"</td><td></td><td style='color:blue;'>"+result[i].total_produzido+"</td>");
-                    $("#tabela8 tbody").append("<tr><td>Perda</td><td>"+ano+"</td><td>"+perda_jan+"</td><td>"+perda_fev+"</td><td>"+perda_mar+ "</td><td>"+perda_abr+"</td><td>"+perda_mai+"</td><td>"+perda_jun+"</td><td>"+perda_jul+"</td><td>"+perda_ago+ "</td><td>"+perda_set+"</td><td>"+perda_out+"</td><td>"+perda_nov+"</td><td>"+perda_dez+"</td><td></td><td style='color:blue;'>"+result[i].total_perda+"</td>");
-                }
-                
-            }            
-
-            
-            //geralAnualData.datasets.push(newDataset1);            
-            //barAnual.update();
-            
-            
-            
-            
-            //$(".comparar").append("<a class='waves-effect waves-light btn btn-adc'>one</a>")
-            
+                    $("#tabela7 tbody").append("<tr><td>Producao</td><td>"+ano+"</td><td>"+number_format(jan,3,",",".")+"</td><td>"+number_format(fev,3,",",".")+"</td><td>"+number_format(mar,3,",",".")+ "</td><td>"+number_format(abr,3,",",".")+"</td><td>"+number_format(mai,3,",",".")+"</td><td>"+number_format(jun,3,",",".")+"</td><td>"+number_format(jul,3,",",".")+"</td><td>"+number_format(ago,3,",",".")+ "</td><td>"+number_format(set,3,",",".")+"</td><td>"+number_format(out,3,",",".")+"</td><td>"+number_format(nov,3,",",".")+"</td><td>"+number_format(dez,3,",",".")+"</td><td style='color:blue;'>"+number_format(result[i].total_produzido,3,",",".")+"</td>");
+                    $("#tabela8 tbody").append("<tr><td>Perda</td><td>"+ano+"</td><td>"+number_format(perda_jan,3,",",".")+"</td><td>"+number_format(perda_fev,3,",",".")+"</td><td>"+number_format(perda_mar,3,",",".")+ "</td><td>"+number_format(perda_abr,3,",",".")+"</td><td>"+number_format(perda_mai,3,",",".")+"</td><td>"+number_format(perda_jun,3,",",".")+"</td><td>"+number_format(perda_jul,3,",",".")+"</td><td>"+number_format(perda_ago,3,",",".")+ "</td><td>"+number_format(perda_set,3,",",".")+"</td><td>"+number_format(perda_out,3,",",".")+"</td><td>"+number_format(perda_nov,3,",",".")+"</td><td>"+number_format(perda_dez,3,",",".")+"</td><td style='color:blue;'>"+number_format(result[i].total_perda,3,",",".")+"</td>");
+                }                
+            }                                   
         }).fail(function(result){
             alert('NÃO RODOU');
         });
     }
-    
-   
-           
-
 });
-
-
-
