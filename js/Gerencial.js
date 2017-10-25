@@ -18,12 +18,15 @@ $(document).ready(function(){
         $('.foto-voltar').show();
         $('#estatisticas').show("slide");                        
         $('#right-conteudo2').hide();
+        $('.anual').hide();
     });
     
     $('.anual').click(function(){
         $('#right-conteudo2').show("slide") ;
         $('#right-conteudo').hide();
-        $('#estatisticas2').show("slide");                        
+        $('#estatisticas2').show("slide");
+        $('.estatic').hide();
+        $('.foto-voltar').show();
         
     });
     
@@ -145,6 +148,27 @@ $(document).ready(function(){
                 var cor2 = ['rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)'];
                 var cor3 = ['rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)'];
                 var cor4 = ['rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)',];
+                function number_format( numero, decimal, decimal_separador, milhar_separador ){ 
+                numero = (numero + '').replace(/[^0-9+\-Ee.]/g, '');
+                var n = !isFinite(+numero) ? 0 : +numero,
+                prec = !isFinite(+decimal) ? 0 : Math.abs(decimal),
+                sep = (typeof milhar_separador === 'undefined') ? ',' : milhar_separador,
+                dec = (typeof decimal_separador === 'undefined') ? '.' : decimal_separador,
+                s = '',
+                toFixedFix = function (n, prec) {
+                    var k = Math.pow(10, prec);
+                    return '' + Math.round(n * k) / k;
+                };  
+                s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
+                if (s[0].length > 3) {
+                    s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+                }
+                if ((s[1] || '').length < prec) {
+                    s[1] = s[1] || '';
+                    s[1] += new Array(prec - s[1].length + 1).join('0');
+                }
+                return s.join(dec);
+            }
                 for(var i in result){                    
                     producao.push(result[i].PRODUCAO);
                     apara.push(result[i].APARA);
@@ -156,8 +180,8 @@ $(document).ready(function(){
                     var soma1 = parseFloat(result[i].PRODUCAO) + parseFloat(result[i].PERDA);
                     var percentual1 = (parseFloat(result[i].PERDA) * 100) / soma1;
                     var soma2 = parseFloat(result[i].APARA) + parseFloat(result[i].REFILE) + parseFloat(result[i].BORRA) + parseFloat(result[i].ACABAMENTO);
-                    $("#tabela1 tbody").append("<tr><td>"+result[i].PRODUCAO+ "</td><td>"+result[i].PERDA+"</td><td style='color:blue;'>"+soma1.toFixed(3)+"</td><td style='color: red;'><strong>"+percentual1.toFixed(1)+"%</strong></td>");
-                    $("#tabela2 tbody").append("<tr><td>"+result[i].APARA+ "</td><td>"+result[i].REFILE+ "</td><td>"+result[i].BORRA+ "</td><td>"+ result[i].ACABAMENTO+"</td><td style='color:blue;'>"+soma2.toFixed(3)+" </td>");                        
+                    $("#tabela1 tbody").append("<tr><td>"+number_format(result[i].PRODUCAO,3,".",",")+ "</td><td>"+number_format(result[i].PERDA,3,".",",")+"</td><td style='color:blue;'>"+number_format(soma1,3,".",",")+"</td><td style='color: red;'><strong>"+percentual1.toFixed(2)+"%</strong></td>");
+                    $("#tabela2 tbody").append("<tr><td>"+number_format(result[i].APARA,3,".",",")+ "</td><td>"+number_format(result[i].REFILE,3,".",",")+ "</td><td>"+number_format(result[i].BORRA,3,".",",")+ "</td><td>"+number_format(result[i].ACABAMENTO,3,".",",")+"</td><td style='color:blue;'>"+number_format(soma2,3,".",",")+" </td>");                        
                 }
                 var data = ultimadata.split("-").reverse().join("/");                        
                 $('.mensagem0').html("ULTIMA DATA PREENCHIDA COM DADOS, CONFORME O FILTRO SOLICITADO " + data);
@@ -217,6 +241,27 @@ $(document).ready(function(){
                 var cor2 = ['rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)'];
                 var cor3 = ['rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)'];
                 var cor4 = ['rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)',];
+                 function number_format( numero, decimal, decimal_separador, milhar_separador ){ 
+                numero = (numero + '').replace(/[^0-9+\-Ee.]/g, '');
+                var n = !isFinite(+numero) ? 0 : +numero,
+                prec = !isFinite(+decimal) ? 0 : Math.abs(decimal),
+                sep = (typeof milhar_separador === 'undefined') ? ',' : milhar_separador,
+                dec = (typeof decimal_separador === 'undefined') ? '.' : decimal_separador,
+                s = '',
+                toFixedFix = function (n, prec) {
+                    var k = Math.pow(10, prec);
+                    return '' + Math.round(n * k) / k;
+                };  
+                s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
+                if (s[0].length > 3) {
+                    s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+                }
+                if ((s[1] || '').length < prec) {
+                    s[1] = s[1] || '';
+                    s[1] += new Array(prec - s[1].length + 1).join('0');
+                }
+                return s.join(dec);
+            }
                 for(var i in result2){
                     turno2.push("Turno " + result2[i].TURNO);
                     producao2.push(result2[i].PRODUCAO);
@@ -227,12 +272,13 @@ $(document).ready(function(){
                     perda2.push(result2[i].PERDA);
                     ultimadata2 = result2[i].ULTIMADATA;
                     var soma3 = parseFloat(result2[i].PRODUCAO) + parseFloat(result2[i].PERDA);
+                    var percentual1 = (parseFloat(result2[i].PERDA) * 100) / soma3;                    
                     var soma4 = parseFloat(result2[i].APARA) + parseFloat(result2[i].REFILE) + parseFloat(result2[i].BORRA) + parseFloat(result2[i].ACABAMENTO);
-                    $("#tabela3 tbody").append("<tr><td>"+result2[i].TURNO+ "</td><td>"+result2[i].PRODUCAO+ "</td><td>"+result2[i].PERDA+"</td><td style='color:blue;'>"+soma3.toFixed(3)+"</td>");
-                    $("#tabela4 tbody").append("<tr><td>"+result2[i].TURNO+ "</td><td>"+result2[i].APARA+ "</td><td>"+result2[i].REFILE+ "</td><td>"+result2[i].BORRA+ "</td><td>"+ result2[i].ACABAMENTO+"</td><td style='color:blue;'>"+soma4.toFixed(3)+"</td>");                        
+                    $("#tabela3 tbody").append("<tr><td>"+result2[i].TURNO+ "</td><td>"+number_format(result2[i].PRODUCAO,3,".",",")+ "</td><td>"+number_format(result2[i].PERDA,3,".",",")+"</td><td style='color:blue;'>"+number_format(soma3,3,".",",")+"</td><td style='color: red;'><strong>"+percentual1.toFixed(2        )+"%</strong></td>");
+                    $("#tabela4 tbody").append("<tr><td>"+result2[i].TURNO+ "</td><td>"+number_format(result2[i].APARA,3,".",",")+ "</td><td>"+number_format(result2[i].REFILE,3,".",",")+ "</td><td>"+number_format(result2[i].BORRA,3,".",",")+ "</td><td>"+number_format(result2[i].ACABAMENTO,3,".",",")+"</td><td style='color:blue;'>"+number_format(soma4,3,".",",")+"</td>");                        
                 }
                 var data = ultimadata2.split("-").reverse().join("/");                        
-                $('.mensagem2').html("ULTIMA DATA PREENCHIDA COM DADOS, CONFORME O FILTRO SOLICITADO " + data);
+                $('.mensagem2').html("RELACAO DE PRODUCAO POR TURNO");
                 var turnoData = {
                     labels: turno2,
                     datasets: [
@@ -306,6 +352,27 @@ $(document).ready(function(){
             var cor3 = ['rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)'];
             var cor4 = ['rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)','rgba(39, 174, 96,1.0)',];
             var ultimadata1;
+            function number_format( numero, decimal, decimal_separador, milhar_separador ){ 
+                numero = (numero + '').replace(/[^0-9+\-Ee.]/g, '');
+                var n = !isFinite(+numero) ? 0 : +numero,
+                prec = !isFinite(+decimal) ? 0 : Math.abs(decimal),
+                sep = (typeof milhar_separador === 'undefined') ? ',' : milhar_separador,
+                dec = (typeof decimal_separador === 'undefined') ? '.' : decimal_separador,
+                s = '',
+                toFixedFix = function (n, prec) {
+                    var k = Math.pow(10, prec);
+                    return '' + Math.round(n * k) / k;
+                };  
+                s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
+                if (s[0].length > 3) {
+                    s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+                }
+                if ((s[1] || '').length < prec) {
+                    s[1] = s[1] || '';
+                    s[1] += new Array(prec - s[1].length + 1).join('0');
+                }
+                return s.join(dec);
+            }
             for(var i in result){
                 extrusora.push("Extrusora " + result[i].EXTRUSORA);
                 producao.push(result[i].PRODUCAO);
@@ -317,11 +384,12 @@ $(document).ready(function(){
                 ultimadata1 = result[i].ULTIMADATA;
                 var soma1 = parseFloat(result[i].PRODUCAO) + parseFloat(result[i].PERDA);
                 var soma2 = parseFloat(result[i].APARA) + parseFloat(result[i].REFILE) + parseFloat(result[i].BORRA) + parseFloat(result[i].ACABAMENTO);
-                $("#tabela5 tbody").append("<tr><td>"+result[i].EXTRUSORA+ "</td><td>"+result[i].PRODUCAO+ "</td><td>"+result[i].PERDA+"</td><td style='color:blue;'>"+soma1.toFixed(3)+"</td>");
-                $("#tabela6 tbody").append("<tr><td>"+result[i].EXTRUSORA+ "</td><td>"+result[i].APARA+ "</td><td>"+result[i].REFILE+ "</td><td>"+result[i].BORRA+ "</td><td>"+ result[i].ACABAMENTO+"</td><td style='color:blue;'>"+soma2.toFixed(3)+"</td>");
+                var percentual1 = (parseFloat(result[i].PERDA) * 100) / soma1;                    
+                $("#tabela5 tbody").append("<tr><td>"+result[i].EXTRUSORA+ "</td><td>"+number_format(result[i].PRODUCAO,3,".",",")+ "</td><td>"+number_format(result[i].PERDA,3,".",",")+"</td><td style='color:blue;'>"+number_format(soma1,3,".",",")+"</td><td style='color: red;'><strong>"+percentual1.toFixed(2)+"%</strong></td>");
+                $("#tabela6 tbody").append("<tr><td>"+result[i].EXTRUSORA+ "</td><td>"+number_format(result[i].APARA,3,".",",")+ "</td><td>"+number_format(result[i].REFILE,3,".",",")+ "</td><td>"+number_format(result[i].BORRA,3,".",",")+ "</td><td>"+number_format(result[i].ACABAMENTO,3,".",",")+"</td><td style='color:blue;'>"+number_format(soma2,3,".",",")+"</td>");
             }
             var data = ultimadata1.split("-").reverse().join("/");                        
-            $('.mensagem1').html("ULTIMA DATA PREENCHIDA COM DADOS, CONFORME O FILTRO SOLICITADO " + data);
+            $('.mensagem1').html("RELACAO DE PRODUCAO POR EXTRUSORA");
             var extdata = {
                 labels: extrusora,
                 datasets : [

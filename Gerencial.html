@@ -5,6 +5,7 @@
         <meta charset="UTF-8">
         <title>Controle de Producao | Ind Bandeirante de Plasticos</title>
         <link rel="stylesheet" href="css/index.css">
+        <link rel="stylesheet" href="css/Gerencial.css">
         <link rel="stylesheet" href="css/materialize.min.css">
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">        
     </head>    
@@ -28,25 +29,244 @@
                     <h5>Informacoes apartir da data de 25/09/2017</h5>
                 </div>
                 
-                <div class="row">                    
-                    <form action="php/view/dashboard.php" method="POST">
-                        <div class="input-field col s4">                        
-                            <input id="data1" type="text" name="data1" class="validate" required> 
-                            <label for="data1">Data Inicial</label>
-                        </div>     
-                        <div class="input-field col s4">                        
-                            <input id="data2" type="text" name="data2" class="validate" required> 
-                            <label for="data2">Data Final</label>
-                        </div>                         
-                        <input type="submit" class="waves-effect waves-light btn" value="CARREGAR"/>                        
-                    </form>
+                <div class="row">                                   
+                    <div class="input-field col s4">                        
+                        <input id="data_1" type="text" name="data_1" class="validate" required> 
+                        <label for="data_1">Data Inicial</label>
+                    </div>     
+                    <div class="input-field col s4">                        
+                        <input id="data_2" type="text" name="data_2" class="validate" required> 
+                        <label for="data_2">Data Final</label>
+                    </div>
+                    <a class="waves-effect waves-light btn" id="btn_gerar">GERAR</a>
                 </div>                                    
+            </div>
+            <div id="grafico0">
+                <div class="row">
+                    <div class="col s9">
+                        <h5 class="mensagem0"></h5>
+                    </div>             
+                    <div class="col s4">
+                        <canvas id="mycanvas0"></canvas>
+                    </div>
+                    <div class="col s3">
+                        <table class="striped" id="tabela1">
+                            <thead>
+                                <th>Producao (Boa)</th>
+                                <th>Producao (Perda)</th>
+                                <th>Total Produzido</th>
+                                <th>Percentual Perda</th>
+                            </thead>
+                             <tbody>
+
+                            </tbody>
+                        </table>                   
+                    </div>
+                </div>
+                <hr />
+                <h3 style="color:red">Perda Analitica</h3>
+                <div class="row">
+                    <div class="col s4">
+                        <canvas id="mycanvas00"></canvas>
+                    </div>
+                    <div class="col s3">
+                        <table class="striped" id="tabela2">
+                            <thead>
+                                <th>Apara</th>
+                                <th>Refile</th>
+                                <th>Borra</th>
+                                <th>Acabamento</th>
+                                <th style="color:blue"><strong>Total Perda</strong></th>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>                 
             </div>            
-	</section>	
+            <div id="grafico1">                
+                <div class="row">
+                    <div class="col s7">
+                        <h5 class="mensagem2"></h5>
+                    </div>                    
+                    <div class="row"></div>
+                    <div class="col s7">
+                        <canvas id="mycanvas3"></canvas>
+                    </div>
+                    <div class="col s3">
+                        <table border="1" class="striped centered responsive-table bordered" id="tabela3">
+                            <thead>
+                                <th>Turno</th>
+                                <th>Producao Boa(KG)</th>
+                                <th>Perda(KG)</th>
+                                <th style="color:blue"><strong>Total por Turno</strong></th>
+                                <th style="color:red"><strong>Percentual Perda por Turno</strong></th>                                
+                            </thead>
+                             <tbody>
+
+                            </tbody>
+                        </table>                   
+                    </div>
+                </div>
+                 <hr />
+                <h3 style="color:red">Perda Analitica</h3>
+                <div class="row">
+                    <div class="col s7">
+                        <canvas id="mycanvas4"></canvas>
+                    </div>
+                    <div class="col s3">
+                        <table border="1" class="striped centered responsive-table bordered" id="tabela4">
+                            <thead>
+                                <th>Turno</th>
+                                <th>Apara</th>
+                                <th>Refile</th>
+                                <th>Borra</th>
+                                <th>Acabamento</th>
+                                <th style="color:blue"><strong>Total por Turno</strong></th>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>                 
+            </div>
+            <div id="grafico2">
+                <div class="row">
+                    <div class="col s7">
+                        <h5 class="mensagem1"></h5>
+                    </div>             
+                    <div class="col s7">
+                        <canvas id="mycanvas"></canvas>
+                    </div>
+                    <div class="col s3">
+                        <table border="1" class="striped centered responsive-table bordered" id="tabela5">
+                            <thead>
+                                <th>Extrusora</th>
+                                <th>Producao Boa(KG)</th>
+                                <th>Perda(KG)</th>    
+                                <th style="color: blue;"><strong>Total por Extrusora</strong></th>
+                                <th style="color: red;"><strong>Percentual Perda por Extrusora</strong></th>
+                            </thead>
+                             <tbody>
+
+                            </tbody>
+                        </table>                   
+
+                    </div>
+                </div>
+                <hr />
+                <h3 style="color:red">Perda Analitica</h3>
+                <div class="row">
+                    <div class="col s6">
+                        <canvas id="mycanvas2"></canvas>
+                    </div>
+                    <div class="col s2">
+                        <table border="1" class="striped centered responsive-table bordered" id="tabela6">
+                            <thead>
+                                <th>Extrusora</th>
+                                <th>Apara</th>
+                                <th>Refile</th>
+                                <th>Borra</th>
+                                <th>Acabamento</th>
+                                <th style="color: blue;"><strong>Total por Extrusora</strong></th>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>                 
+            </div>
+	</section>
+        <section id="right-conteudo2">
+            <img src="img/voltar.png" class="foto-voltar">
+            <div id="estatisticas2">
+                <div class="row">                    
+                
+                </div>
+                
+                <div class="row">                                   
+                    <div class="input-field col s4">                        
+                        <input id="ano_1" type="text" name="ano_1" class="validate" required> 
+                        <label for="ano_1">Ano Inicial</label>
+                    </div>     
+                    <div class="input-field col s4">                        
+                        <input id="ano_2" type="text" name="ano_2" class="validate" required> 
+                        <label for="ano_2">Ano Final</label>
+                    </div>                   
+                    <a class="waves-effect waves-light btn" id="btn_gerar2">GERAR</a>
+                </div>
+            </div>
+            <div id="grafico_anual0">
+                <div class="row">                   
+                    <div class="col s12">
+                        <canvas id="mycanvasanual0"></canvas>
+                    </div>
+                    
+                </div>
+                   <div class="row">
+                       <div class="col s3">
+                        <table border="1" class="striped centered responsive-table bordered" id="tabela7">
+                            <thead>
+                                <th>Tipo</th>
+                                <th>Ano</th>
+                                <th>Jan</th>                                
+                                <th>Fev</th>
+                                <th>Mar</th>                                
+                                <th>Abr</th>                                
+                                <th>Mai</th>                                
+                                <th>Jun</th>                                
+                                <th>Jul</th>                                
+                                <th>Ago</th>                                
+                                <th>Set</th>                                
+                                <th>Out</th>                                
+                                <th>Nov</th>                                
+                                <th>Dez</th>                                
+                                <th>Total</th>                                
+                            </thead>
+                             <tbody>
+
+                            </tbody>
+                        </table>                   
+                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s3">
+                        <table border="1" class="striped centered responsive-table bordered" id="tabela8">
+                            <thead>
+                                <th>Tipo</th>
+                                <th>Ano</th>
+                                <th>Jan</th>                                
+                                <th>Fev</th>
+                                <th>Mar</th>                                
+                                <th>Abr</th>                                
+                                <th>Mai</th>                                
+                                <th>Jun</th>                                
+                                <th>Jul</th>                                
+                                <th>Ago</th>                                
+                                <th>Set</th>                                
+                                <th>Out</th>                                
+                                <th>Nov</th>                                
+                                <th>Dez</th>                                
+                                <th>Total</th>                                
+                            </thead>
+                             <tbody>
+
+                            </tbody>
+                        </table>                                           
+                    </div>
+                   </div>
+            </div>                        
+        </section>
         <script src="js/jquery.min.js"></script>
+        <script src="js/Chart.js"></script>
 	<script src="js/jquery-ui.min.js"></script>
 	<script src="js/Gerencial.js"></script>
         <script src="js/materialize.min.js"></script>
-        <script src="js/jquery.maskedinput.min.js"></script>        
+        <script src="js/jquery.maskedinput.min.js"></script>
+        <script src="jquery.maskMoney.min.js"></script>            
     </body>        
 </html>

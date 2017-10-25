@@ -2,16 +2,16 @@
 
 class datb{
     // INFO DO BD HOMOLOGACAO
-    private $host = "localhost";
-    private $usr = "root";
-    private $pass = "admin";
-    private $dbase = "producao";
+    //private $host = "localhost";
+    //private $usr = "root";
+    //private $pass = "admin";
+    //private $dbase = "producao";
 
     // INFO DO BD PRODUCAO    
-    //private $host = "192.168.1.15";
-    //private $usr = "root";
-    //private $pass = "B@nd@)!@";
-    //private $dbase = "producao";
+    private $host = "192.168.1.15";
+    private $usr = "root";
+    private $pass = "B@nd@)!@";
+    private $dbase = "producao";
     
     // ATRIBUTOS USADOS
     private $query;
