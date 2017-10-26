@@ -1,4 +1,21 @@
 $(document).ready(function(){        
+    $('.datepicker').pickadate({
+    monthsFull: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+    monthsShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+    weekdaysFull: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabádo'],
+    weekdaysShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
+    today: 'Hoje',
+    clear: 'Limpar',
+    close: 'Pronto',
+    labelMonthNext: 'Próximo mês',
+    labelMonthPrev: 'Mês anterior',
+    labelMonthSelect: 'Selecione um mês',
+    labelYearSelect: 'Selecione um ano',
+    selectMonths: true, 
+    selectYears: 15, 
+    // Formato da data que aparece no input
+    format: 'dd/mm/yyyy'
+    });                    
     $('.foto-voltar').hide();
     $('select').material_select();
     $('#dashboard').hide();
@@ -67,6 +84,7 @@ $(document).ready(function(){
         var newdata2 = data2.split("/").reverse().join("-");                
         $('#tabela1 tbody').empty();
         $('#tabela2 tbody').empty();
+        $('.mensagem00').html("FILTRO SOLICITADO " + data1+ " A " + data2 );
         obj = new Object();
         obj.acao = 6;
         obj.data1 = newdata1;
@@ -98,6 +116,7 @@ $(document).ready(function(){
         var ano2 = $('#ano_2').val();               
         $('#tabela7 tbody').empty();             
         $('#tabela8 tbody').empty();
+        $('.mensagem00').html("FILTRO SOLICITADO " + ano1+ " A " + ano2 );
         obj = new Object();
         obj.acao = 9;
         obj.ano1 = ano1;
@@ -124,10 +143,6 @@ $(document).ready(function(){
         */
        $('#estatisticas2').hide();
     });
-    
-    
-    
-    
     // GRAFICO GERAL
     function geraGrafico0(item){
         $.ajax({
@@ -136,7 +151,7 @@ $(document).ready(function(){
            url: "php/control/controller.php",
            dataType: 'json',
         }).done(function(result){
-            $("#grafico0").show();            
+            $("#grafico0").show();
                 var producao = [];
                 var apara = [];
                 var refile = [];
@@ -184,7 +199,7 @@ $(document).ready(function(){
                     $("#tabela2 tbody").append("<tr><td>"+number_format(result[i].APARA,3,".",",")+ "</td><td>"+number_format(result[i].REFILE,3,".",",")+ "</td><td>"+number_format(result[i].BORRA,3,".",",")+ "</td><td>"+number_format(result[i].ACABAMENTO,3,".",",")+"</td><td style='color:blue;'>"+number_format(soma2,3,".",",")+" </td>");                        
                 }
                 var data = ultimadata.split("-").reverse().join("/");                        
-                $('.mensagem0').html("ULTIMA DATA PREENCHIDA COM DADOS, CONFORME O FILTRO SOLICITADO " + data);
+                $('.mensagem0').html("ULTIMA DATA PREENCHIDA COM DADOS, CONFORME O FILTRO SOLICITADO FOI DE " + data);
                 
                 var geralData = {
                      labels: ["Producao(BOA)","Producao (PERDA)"],

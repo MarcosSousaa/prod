@@ -31,11 +31,11 @@
                 
                 <div class="row">                                   
                     <div class="input-field col s4">                        
-                        <input id="data_1" type="text" name="data_1" class="validate" required> 
+                        <input id="data_1" type="text" name="data_1" class="datepicker" required> 
                         <label for="data_1">Data Inicial</label>
                     </div>     
                     <div class="input-field col s4">                        
-                        <input id="data_2" type="text" name="data_2" class="validate" required> 
+                        <input id="data_2" type="text" name="data_2" class="datepicker" required> 
                         <label for="data_2">Data Final</label>
                     </div>
                     <a class="waves-effect waves-light btn" id="btn_gerar">GERAR</a>
@@ -45,6 +45,7 @@
                 <div class="row">
                     <div class="col s9">
                         <h5 class="mensagem0"></h5>
+                        <h6 class="mensagem00"></h6>
                     </div>             
                     <div class="col s4">
                         <canvas id="mycanvas0"></canvas>
@@ -54,8 +55,8 @@
                             <thead>
                                 <th>Producao (Boa)</th>
                                 <th>Producao (Perda)</th>
-                                <th>Total Produzido</th>
-                                <th>Percentual Perda</th>
+                                <th style="color: blue;">Total Produzido</th>
+                                <th style="color: red;">Percentual Perda</th>
                             </thead>
                              <tbody>
 
@@ -199,15 +200,17 @@
                     <a class="waves-effect waves-light btn" id="btn_gerar2">GERAR</a>
                 </div>
             </div>
-            <div id="grafico_anual0">
-                <div class="row">                   
+            <div id="grafico_anual0">                
+                <div class="row">
+                    <div class="col s3">
+                        <h6 class="mensagem00"></h6>
+                    </div>
                     <div class="col s12">
                         <canvas id="mycanvasanual0"></canvas>
-                    </div>
-                    
+                    </div>                
                 </div>
-                   <div class="row">
-                       <div class="col s3">
+                <div class="row">                    
+                    <div class="col s3">
                         <table border="1" class="striped centered responsive-table bordered" id="tabela7">
                             <thead>
                                 <th>Tipo</th>
