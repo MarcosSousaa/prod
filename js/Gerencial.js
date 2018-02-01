@@ -2,14 +2,14 @@ $(document).ready(function(){
     $('.datepicker').pickadate({
     monthsFull: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
     monthsShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-    weekdaysFull: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabádo'],
+    weekdaysFull: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabado'],
     weekdaysShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
     today: 'Hoje',
     clear: 'Limpar',
     close: 'Pronto',
-    labelMonthNext: 'Próximo mês',
-    labelMonthPrev: 'Mês anterior',
-    labelMonthSelect: 'Selecione um mês',
+    labelMonthNext: 'Proximo mes',
+    labelMonthPrev: 'Mes anterior',
+    labelMonthSelect: 'Selecione um mes',
     labelYearSelect: 'Selecione um ano',
     selectMonths: true, 
     selectYears: 15, 
@@ -122,25 +122,7 @@ $(document).ready(function(){
         obj.ano1 = ano1;
         obj.ano2 = ano2;             
         obj = JSON.stringify(obj);       
-        geraGraficoAnual0(obj);                        
-        /*       
-        $('#tabela9 tbody').empty();
-        $('#tabela10 tbody').empty();
-        obj = new Object();
-        obj.acao = 10;
-        obj.ano1 = ano1;
-        obj.ano2 = ano2;             
-        obj = JSON.stringify(obj);       
-        geraGraficoAnual1(obj);                        
-        $('#tabela11 tbody').empty();
-        $('#tabela12 tbody').empty();
-        obj = new Object();
-        obj.acao = 11;           
-        obj.ano1 = ano1;
-        obj.ano2 = ano2;             
-        obj = JSON.stringify(obj);       
-        geraGraficoAnual2(obj);       
-        */
+        geraGraficoAnual0(obj);                              
        $('#estatisticas2').hide();
     });
     // GRAFICO GERAL

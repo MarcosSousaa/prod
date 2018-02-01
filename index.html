@@ -18,7 +18,8 @@
 		<p class="nome-empresa">Ind Bandeirante</p> <!-- NOME DA EMPRESA -->		
 		<ul>					
                     <li><span class="produt">INSERIR DADOS PRODUCAO</span></li>
-                    <li><span class="alter-produt">ALTERAR DADOS PRODUCAO</span></li>                    
+                    <li><span class="alter-produt">ALTERAR DADOS PRODUCAO</span></li>
+                    <li><span class="import-produt">IMPORTAR PLANILHA MINAS</span></li>
 		</ul>		
 	</section>
 	<section id="right-conteudo">
@@ -27,7 +28,7 @@
                 <div class="row">
                     <div class="input-field col s4">
                         <input id="id" name="id" type="hidden" value=""/>
-                        <input id="data" type="text" class="validate"> 
+                        <input id="data" type="text" class="validate datepicker"> 
                         <label for="data">Data Producao</label>
                     </div>                    
                     <div class="input-field col s6">
@@ -89,6 +90,7 @@
                             <option value="BFG">BFG</option>
                             <option value="LM">LM</option>
                             <option value="PM">PM</option>
+                            <option value="PE">PE</option>
                             <option value="AC">AC</option>
                             <option value="LM">LG</option>
                             <option value="QE">QE</option>
@@ -113,6 +115,9 @@
                     </div>
                     <div class="input-field col s2">
                         <h6>PM - PROBLEMA MECANICO</h6>
+                    </div>
+                    <div class="input-field col s2">
+                        <h6>PM - PROBLEMA ELETRICO</h6>
                     </div>
                     <div class="input-field col s2">
                         <h6>AC - ACERTO</h6>
@@ -145,24 +150,29 @@
                     </button>                     
                 </div>
             </div>            
-             <div id="alter-produto">                 
-                 <div class="row">
+             <div id="alter-produto">               
+                 <div class="row">                        
+                        <div class="input-field col s6">
+                            <select id="emp"></select>
+                            <label>EMPRESA</label>
+                        </div>   
+                        <div class="row"></div>
                         <div class="input-field col s4">                        
-                            <input id="data1" type="text" class="validate"> 
+                            <input id="data1" type="text" class="validate datepicker"> 
                             <label for="data1">Data Inicial</label>
                         </div>     
                         <div class="input-field col s4">                        
-                            <input id="data2" type="text" class="validate"> 
+                            <input id="data2" type="text" class="validate datepicker"> 
                             <label for="data2">Data Final</label>
                         </div>     
-                        <a class="waves-effect waves-light btn" id="botao-alterar">CARREGAR</a>
-                        <a class="waves-effect waves-light btn" id="botao-voltar">VOLTAR</a>
+                        <a class="waves-effect waves-light btn" id="botao-alterar">CARREGAR</a>                        
                  </div>               
                 <div class="row">                    
                     <table border="1" id="table" class="striped centered responsive-table bordered">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th style="display:none;">ID</th>
+                                <th>UN</th>
                                 <th>DATA</th>
                                 <th>EXTRUSORA</th>
                                 <th>TURNO</th>
@@ -183,7 +193,21 @@
                     </table>
                 </div>            
             </div>            
-            <div id="estatisticas">                
+            <div id="import-produt">
+                <form action="php/control/upload.php" method="post" >
+                    <div class="row"></div>                        
+                    <div class="file-field input-field">
+                        <div class="row"></div>                        
+                        <div class="btn">
+                            <span>File</span>
+                            <input type="file" name="arq" id="arq">
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text">
+                        </div>
+                    </div>                    
+                    <input type="submit" value="Importar" class="waves-effect wvaes-light btn" />
+                </form>
             </div>            
 	</section>	
         <script src="js/jquery.min.js"></script>

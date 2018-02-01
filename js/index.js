@@ -2,9 +2,32 @@
 
 
 $(document).ready(function(){
+    // CRIANDO CALENDARIO
+    $('.datepicker').pickadate({
+        monthsFull: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+        monthsShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+        weekdaysFull: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabado'],
+        weekdaysShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
+        today: 'Hoje',
+        clear: 'Limpar',
+        close: 'Pronto',
+        labelMonthNext: 'Proximo mes',
+        labelMonthPrev: 'Mes anterior',
+        labelMonthSelect: 'Selecione um mes',
+        labelYearSelect: 'Selecione um ano',
+        selectMonths: true, 
+        selectYears: 15, 
+        // Formato da data que aparece no input
+        format: 'dd/mm/yyyy'
+    });                    
+    
+    
+    
+    
     //ESCONDENDO AS DIV 
     $('#produto').hide();
-    $('#alter-produto').hide();   
+    $('#alter-produto').hide();
+    $('#import-produt').hide();
     $('#container').hide();
     $('.foto-voltar').hide();
     $('#geral-table').hide();
@@ -27,6 +50,8 @@ $(document).ready(function(){
         $('.alter-produt').hide("slide");
         $('#alter-produto').hide("slide");
         $('#container').hide("slide");
+        $('#import-produt').hide();
+        $('.import-produt').hide();
         
     });
           
@@ -39,8 +64,24 @@ $(document).ready(function(){
         $('.estatic').hide("slide");
         $('#produto').hide("slide");
         $('.produt').hide("slide");
+        $('#import-produt').hide();
+        $('.import-produt').hide();
         $('#tabela').empty();
+        var obj = new Object();
+            obj.acao = 12;                        
+            var obj = JSON.stringify(obj);            
+            seleciona_empresa(obj);
         
+    });
+    $(".import-produt").click(function(){
+        $('#container').show("slide");
+        $('.foto-voltar').show();
+        $('#import-produt').show();        
+        $('#alter-produto').hide();
+        $('.alter-produt').hide();
+        $('.estatic').hide();
+        $('#produto').hide();
+        $('.produt').hide();
     });
     // FUNÇÃO VOLTANDO PARA A SECTION LIMPA E ESCONDENDO AS IMG SAIR    
     $('.foto-voltar').click(function(){
@@ -110,6 +151,16 @@ $(document).ready(function(){
             
         }
     });
+    
+    $('#botao-importar').click(function(){
+        var teste = $('#arq').val();
+        alert(teste);
+        var obj = new Object();
+        obj.acao = 12;
+        obj.arq = teste;
+        var obj = JSON.stringify(obj);
+        importa(obj);
+    });
             
     // FUNÇÃO PARA CADASTRAR    
     function cadastra(item){
@@ -130,6 +181,25 @@ $(document).ready(function(){
             $("html").html(msg.responseText);
         });
     }
+    
+        function importa(item){
+        $.ajax({
+            method: "POST",
+            data: {item: item},
+            url: "php/control/controller.php",
+            dataType: 'json'                        
+        }).done(function (result) {            
+            if(result){                                
+                $(".foto-voltar").trigger("click");            
+                Materialize.toast("Planilha importada com sucesso", 40000);
+            }else{
+                Materialize.toast("Erro ao importar a planilha", 4000);
+            }
+            
+        }).fail(function (msg){                        
+            $("html").html(msg.responseText);
+        });
+    }
     // FUNCAO SELECIONAR DADOS
     function seleciona(item){        
         $('#tabela').empty();
@@ -144,6 +214,22 @@ $(document).ready(function(){
             $("#table tbody").html(response);
                                     
             
+        }).fail(function (msg){
+            $("html").html(msg.responseText);
+        });
+    }
+    
+     function seleciona_empresa(item){             
+        $.ajax({
+            type: 'POST',          
+            data: {item: item},                      
+            url: "php/control/controller.php",
+            dataType: 'json'
+                        
+        }).done(function(response){                             
+            $("#emp").html(response);                                                   
+            $('#emp').material_select();                                                
+                
         }).fail(function (msg){
             $("html").html(msg.responseText);
         });
@@ -293,8 +379,10 @@ $(document).ready(function(){
         var newdata1 = data1.split("/").reverse().join("-");
         var data2 = $('#data2').val();
         var newdata2 = data2.split("/").reverse().join("-");
+        var empresa = $('#emp').val();
         var obj = new Object();        
-        obj.acao = 0;        
+        obj.acao = 0;     
+        obj.emp = empresa;
         obj.data1 = newdata1;
         obj.data2 = newdata2;
         obj = JSON.stringify(obj);            

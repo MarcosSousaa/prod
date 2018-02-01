@@ -77,6 +77,14 @@
         echo json_encode($result);                 
     }
     
+    else if($json->{'acao'} == 12){
+         require_once 'dados.php';
+        $dados = new dados();
+        $result = $dados->seleciona_empresa($json);
+        echo json_encode($result);        
+    }
+
+    
     
  
 

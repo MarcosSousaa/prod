@@ -1,5 +1,7 @@
 <?php
     require_once '../model/datb.php';
+    require_once '../model/simplexlsx.class.php';
+    ini_set('max_execution_time','-1');
     
     class dados {
         public $id;
@@ -15,23 +17,36 @@
         public $qtd_parada;
         public $tempo_parada;
         public $oc;
+       
         
-     
         public function seleciona($json){
             $banco = new datb();            
-            $query = "SELECT * FROM DADOS WHERE DATA_PROD BETWEEN'".$json->{'data1'}."' AND '".$json->{'data2'}."';";
+            //$query = "SELECT * FROM D WHERE DATA_PROD BETWEEN'".$json->{'data1'}."' AND '".$json->{'data2'}."' AND EMPRESA_FK =".$json->{'empresa'}." ORDER BY DATA_PROD;";
+            $query = "SELECT * FROM d LEFT OUTER JOIN empresa ON D.EMPRESA_FK = EMPRESA.ID_EMPRESA DATA_PROD BETWEEN'".$json->{'data1'}."' AND '".$json->{'data2'}."' AND EMPRESA_FK = ".$json->{'emp'}." ORDER BY DATA_PROD;";
             $result = $banco ->sql_query($query);
             $table = "";
             foreach ($result as $row){            
                 $row['DATA_PROD'] = str_replace("-", "/", $row['DATA_PROD']);
                 $row['DATA_PROD'] = date('d/m/Y', strtotime($row['DATA_PROD'])); 
-                $table .= "<tr><td>".$row['ID']."</td><td>".$row['DATA_PROD']."</td><td>".$row['EXTRUSORA']."</td><td>".$row['TURNO']."</td><td>".$row['OPERADOR']."</td><td>".$row['PROD_KG']."</td><td>".$row['APARA']."</td><td>".$row['REFILE']."</td><td>".$row['BORRA']."</td><td>".$row['ACABAMENTO']."</td><td>".$row['QTD_PARADA']."</td><td>".$row['TEMPO_PARADA']."</td><td>".$row['OC']."</td>";
+                $table .= "<tr><td style='display: none;'>".$row['ID']."</td><td>".$row['NOME_EMP']."</td><td>".$row['DATA_PROD']."</td><td>".$row['EXTRUSORA']."</td><td>".$row['TURNO']."</td><td>".$row['OPERADOR']."</td><td>".$row['PROD_KG']."</td><td>".$row['APARA']."</td><td>".$row['REFILE']."</td><td>".$row['BORRA']."</td><td>".$row['ACABAMENTO']."</td><td>".$row['QTD_PARADA']."</td><td>".$row['TEMPO_PARADA']."</td><td>".$row['OC']."</td>";
                 $table .= "<td><a class='waves-effect waves-light btn btn-edit'><i class='material-icons center'>edit</i></a></td>";
                 $table .= "<td><a class='waves-effect waves-light btn btn-del'><i class='material-icons center'>delete</i></a></td>";
             }        
             return $table;      
         }
-      
+        
+        public function seleciona_empresa($json){
+            $banco = new datb();         
+            $query = "SELECT * FROM empresa";
+            $result = $banco ->sql_query_emp($query);
+            $table = "";
+            $table = "<option disabled selected>SELECIONE UMA EMPRESA</option>";
+            foreach ($result as $row){            
+                $table .= '<option value="'.$row['ID_EMPRESA'].'">'.$row['NOME_EMPRESA'].'</option>';
+            }        
+            return $table;      
+        }
+        
         public function insere_dados($json){          
             $banco = new datb();
             date_default_timezone_set('America/Sao_Paulo');
@@ -46,6 +61,57 @@
                                 
             return $banco ->sql_insert($query);            
         }
+        
+        public function importaDados($json){
+            try{
+                $banco = new datb();
+                date_default_timezone_set('America/Sao_Paulo');
+                $date = date('Y-m-d H:i');
+                $query = "INSERT INTO D(EMPRESA_FK,DATA_PROD,EXTRUSORA,TURNO,OPERADOR,PROD_KG,APARA,REFILE,BORRA,ACABAMENTO,QTD_PARADA,TEMPO_PARADA,TIMESTAMP) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                $stm = $banco->sql_insert($query);
+                $linha = null;
+                foreach($this->planilha->rows() as $chave => $valor):
+				if ($chave >= 1 ):		
+					$empresa  = trim($valor[0]);
+					$data_prod    = trim($valor[1]);
+					$extrusora     = trim($valor[2]);
+					$turno   = trim($valor[3]);
+					$operador = trim($valor[4]);
+                                        $prod_kg  = trim($valor[5]);
+					$apara    = trim($valor[6]);
+					$refile     = trim($valor[7]);
+					$borra   = trim($valor[8]);
+					$acabamento = trim($valor[9]);
+                                        $qtd_parada  = trim($valor[10]);
+					$tempo_parada    = trim($valor[11]);
+					$oc     = trim($valor[12]);
+                                        $timestamp = $date;
+                                        
+					$stm->bindValue(1, $empresa);
+					$stm->bindValue(2, $data_prod);
+					$stm->bindValue(3, $extrusora);
+					$stm->bindValue(4, $turno);
+					$stm->bindValue(5, $operador);
+                                        $stm->bindValue(6, $prod_kg);
+					$stm->bindValue(7, $apara);
+					$stm->bindValue(8, $refile);
+					$stm->bindValue(9, $borra);
+					$stm->bindValue(10, $acabamento);
+                                        $stm->bindValue(11, $qtd_parada);
+					$stm->bindValue(12, $tempo_parada);
+					$stm->bindValue(13, $oc);
+                                        $stm->bindValue(14, $timestamp);
+					$retorno = $stm->execute();					
+					if($retorno == true) $linha++;
+				 endif;
+			endforeach;
+ 
+                    return $linha;
+            } catch (Exception $ex) {
+                    echo 'Erro: ' . $erro->getMessage();
+            }
+        }
+       
     
         public function seleciona_id($id){
             $banco = new datb();

@@ -2,11 +2,11 @@
 
 class datb{
     // INFO DO BD HOMOLOGACAO
-    private $host = "localhost";
+        private $host = "localhost";
     private $usr = "root";
     private $pass = "admin";
     private $dbase = "producao";
-
+    
     // INFO DO BD PRODUCAO    
     //private $host = "192.168.1.15";
     //private $usr = "root";
@@ -49,10 +49,11 @@ class datb{
         $this->conecta();
         $this->query = mysqli_query($this->link,$query);        
         $return = array();        
-       while($this->resultado = mysqli_fetch_array($this->query)){
+        while($this->resultado = mysqli_fetch_array($this->query)){
            // Escreve na pagina o retorno para cada registro trazido pela query
            $return[] = array(
-               'ID'=>$this->resultado['ID_DADOS'],
+               'ID'=>$this->resultado['ID_DADOS'],           
+               'FK_EMPRESA'=>$this->resultado['FK_EMPRESA'],
                'DATA_PROD'=>$this->resultado['DATA_PROD'],
                'EXTRUSORA'=>$this->resultado['EXTRUSORA'],
                'TURNO'=>$this->resultado['TURNO'],
@@ -64,7 +65,24 @@ class datb{
                'ACABAMENTO'=>$this->resultado['ACABAMENTO'],
                'QTD_PARADA'=>$this->resultado['QTD_PARADA'],
                'TEMPO_PARADA'=>$this->resultado['TEMPO_PARADA'],
-               'OC'=>$this->resultado['OC']           
+               'OC'=>$this->resultado['OC'],               
+               'ID_EMPRESA'=>$this->resultado['ID_EMPRESA'],
+               'NOME_EMP'=>$this->resultado['NOME_EMPRESA'],
+           );
+       }       
+       $this->desconecta();
+       return $return;       
+    }
+    
+        function sql_query_emp($query){
+        $this->conecta();
+        $this->query = mysqli_query($this->link,$query);        
+        $return = array();        
+        while($this->resultado = mysqli_fetch_array($this->query)){
+           // Escreve na pagina o retorno para cada registro trazido pela query
+           $return[] = array(               
+               'ID_EMPRESA'=>$this->resultado['ID_EMPRESA'],
+               'NOME_EMPRESA'=>$this->resultado['NOME_EMPRESA']
            );
        }       
        $this->desconecta();
