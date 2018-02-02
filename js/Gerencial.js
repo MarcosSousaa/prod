@@ -36,6 +36,10 @@ $(document).ready(function(){
         $('#estatisticas').show("slide");                        
         $('#right-conteudo2').hide();
         $('.anual').hide();
+        var obj = new Object();
+        obj.acao = 12;                        
+        var obj = JSON.stringify(obj);            
+        seleciona_empresa(obj);
     });
     
     $('.anual').click(function(){
@@ -81,14 +85,16 @@ $(document).ready(function(){
         var data1 = $('#data_1').val();        
         var newdata1 = data1.split("/").reverse().join("-");                        
         var data2 = $('#data_2').val();        
-        var newdata2 = data2.split("/").reverse().join("-");                
+        var newdata2 = data2.split("/").reverse().join("-");
+        var empresa = $('#empresa_').val();
         $('#tabela1 tbody').empty();
         $('#tabela2 tbody').empty();
-        $('.mensagem00').html("FILTRO SOLICITADO " + data1+ " A " + data2 );
+        $('.mensagem00').html("FILTRO SOLICITADO " + data1+ " A " + data2 );        
         obj = new Object();
         obj.acao = 6;
         obj.data1 = newdata1;
-        obj.data2 = newdata2;             
+        obj.data2 = newdata2;
+        obj.empresa = empresa;
         obj = JSON.stringify(obj);       
         geraGrafico0(obj);        
         $('#tabela3 tbody').empty();
@@ -96,7 +102,8 @@ $(document).ready(function(){
         obj = new Object();
         obj.acao = 7;
         obj.data1 = newdata1;
-        obj.data2 = newdata2;             
+        obj.data2 = newdata2;    
+        obj.empresa = empresa;
         obj = JSON.stringify(obj);       
         geraGrafico1(obj);                        
         $('#tabela5 tbody').empty();
@@ -104,7 +111,8 @@ $(document).ready(function(){
         obj = new Object();
         obj.acao = 8;
         obj.data1 = newdata1;
-        obj.data2 = newdata2;            
+        obj.data2 = newdata2;   
+        obj.empresa = empresa;
         obj = JSON.stringify(obj);       
         geraGrafico2(obj);
         $('#estatisticas').hide();
@@ -125,6 +133,23 @@ $(document).ready(function(){
         geraGraficoAnual0(obj);                              
        $('#estatisticas2').hide();
     });
+    
+    function seleciona_empresa(item){             
+        $.ajax({
+            type: 'POST',          
+            data: {item: item},                      
+            url: "php/control/controller.php",
+            dataType: 'json'
+                        
+        }).done(function(response){                             
+            $("#empresa_").html(response);                                                   
+            $('#empresa_').material_select();                                                
+                
+        }).fail(function (msg){
+            $("html").html(msg.responseText);
+        });
+    }
+    
     // GRAFICO GERAL
     function geraGrafico0(item){
         $.ajax({
@@ -141,6 +166,7 @@ $(document).ready(function(){
                 var acabamento = [];
                 var perda = [];                
                 var ultimadata;
+                var empresa;
                 var cor1 = ['rgba(41, 128, 185,1.0)', 'rgba(41, 128, 185,1.0)', 'rgba(41, 128, 185,1.0)','rgba(41, 128, 185,1.0)', 'rgba(41, 128, 185,1.0)', 'rgba(41, 128, 185,1.0)','rgba(41, 128, 185,1.0)', 'rgba(41, 128, 185,1.0)', 'rgba(41, 128, 185,1.0)'];
                 var cor2 = ['rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)','rgba(192, 57, 43,1.0)'];
                 var cor3 = ['rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)','rgba(44, 62, 80,1.0)'];
@@ -174,13 +200,15 @@ $(document).ready(function(){
                     acabamento.push(result[i].ACABAMENTO);
                     perda.push(result[i].PERDA);
                     ultimadata = result[i].ULTIMADATA;
+                    empresa = result[i].NOME_EMP;
                     var soma1 = parseFloat(result[i].PRODUCAO) + parseFloat(result[i].PERDA);
                     var percentual1 = (parseFloat(result[i].PERDA) * 100) / soma1;
                     var soma2 = parseFloat(result[i].APARA) + parseFloat(result[i].REFILE) + parseFloat(result[i].BORRA) + parseFloat(result[i].ACABAMENTO);
                     $("#tabela1 tbody").append("<tr><td>"+number_format(result[i].PRODUCAO,3,".",",")+ "</td><td>"+number_format(result[i].PERDA,3,".",",")+"</td><td style='color:blue;'>"+number_format(soma1,3,".",",")+"</td><td style='color: red;'><strong>"+percentual1.toFixed(2)+"%</strong></td>");
                     $("#tabela2 tbody").append("<tr><td>"+number_format(result[i].APARA,3,".",",")+ "</td><td>"+number_format(result[i].REFILE,3,".",",")+ "</td><td>"+number_format(result[i].BORRA,3,".",",")+ "</td><td>"+number_format(result[i].ACABAMENTO,3,".",",")+"</td><td style='color:blue;'>"+number_format(soma2,3,".",",")+" </td>");                        
                 }
-                var data = ultimadata.split("-").reverse().join("/");                        
+                var data = ultimadata.split("-").reverse().join("/");
+                $('.empresa').html("EMPRESA - INDUSTRIA BANDEIRANTE DE PLASTICOS LTDA - " + empresa);
                 $('.mensagem0').html("ULTIMA DATA PREENCHIDA COM DADOS, CONFORME O FILTRO SOLICITADO FOI DE " + data);
                 
                 var geralData = {

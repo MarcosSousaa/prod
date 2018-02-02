@@ -68,25 +68,26 @@ class ImportaPlanilha{
 		try{
                         date_default_timezone_set('America/Sao_Paulo');
                         $date = date('Y-m-d H:i');
+                        $emp = 2;
 			$sql = 'INSERT INTO d(EMPRESA_FK,DATA_PROD,EXTRUSORA,TURNO,OPERADOR,PROD_KG,APARA,REFILE,BORRA,ACABAMENTO,QTD_PARADA,TEMPO_PARADA,OC,TIMESTAMP) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 			$stm = $this->conexao->prepare($sql);
 			
 			$linha = null;
 			foreach($this->planilha->rows() as $chave => $valor):
 				if ($chave >= 1 ):		
-					$empresa  = trim($valor[0]);
-					$data_prod    = trim($valor[1]);
-					$extrusora     = trim($valor[2]);
-					$turno   = trim($valor[3]);
-					$operador = trim($valor[4]);
-                                        $prod_kg  = trim($valor[5]);
-					$apara    = trim($valor[6]);
-					$refile     = trim($valor[7]);
-					$borra   = trim($valor[8]);
-					$acabamento = trim($valor[9]);
-                                        $qtd_parada  = trim($valor[10]);
-					$tempo_parada    = trim($valor[11]);
-					$oc     = trim($valor[12]);
+					$empresa  = $emp;
+					$data_prod    = trim($valor[0]);
+					$extrusora     = trim($valor[1]);
+					$turno   = trim($valor[2]);
+					$operador = trim($valor[3]);
+                                        $prod_kg  = trim($valor[4]);
+					$apara    = trim($valor[5]);
+					$refile     = trim($valor[6]);
+					$borra   = trim($valor[7]);
+					$acabamento = trim($valor[8]);
+                                        $qtd_parada  = trim($valor[9]);
+					$tempo_parada    = trim($valor[10]);
+					$oc     = trim($valor[11]);
                                         $timestamp = $date;
                                         
 					$stm->bindValue(1, $empresa);

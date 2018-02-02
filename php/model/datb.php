@@ -52,8 +52,7 @@ class datb{
         while($this->resultado = mysqli_fetch_array($this->query)){
            // Escreve na pagina o retorno para cada registro trazido pela query
            $return[] = array(
-               'ID'=>$this->resultado['ID_DADOS'],           
-               'FK_EMPRESA'=>$this->resultado['FK_EMPRESA'],
+               'ID'=>$this->resultado['ID_DADOS'],                          
                'DATA_PROD'=>$this->resultado['DATA_PROD'],
                'EXTRUSORA'=>$this->resultado['EXTRUSORA'],
                'TURNO'=>$this->resultado['TURNO'],
@@ -74,7 +73,33 @@ class datb{
        return $return;       
     }
     
-        function sql_query_emp($query){
+    function sql_query_id($query){
+        $this->conecta();
+        $this->query = mysqli_query($this->link,$query);        
+        $return = array();        
+        while($this->resultado = mysqli_fetch_array($this->query)){
+           // Escreve na pagina o retorno para cada registro trazido pela query
+           $return[] = array(
+               'ID'=>$this->resultado['ID_DADOS'],                          
+               'DATA_PROD'=>$this->resultado['DATA_PROD'],
+               'EXTRUSORA'=>$this->resultado['EXTRUSORA'],
+               'TURNO'=>$this->resultado['TURNO'],
+               'OPERADOR'=>$this->resultado['OPERADOR'],
+               'PROD_KG'=>$this->resultado['PROD_KG'],
+               'APARA'=>$this->resultado['APARA'],
+               'REFILE'=>$this->resultado['REFILE'],
+               'BORRA'=>$this->resultado['BORRA'],
+               'ACABAMENTO'=>$this->resultado['ACABAMENTO'],
+               'QTD_PARADA'=>$this->resultado['QTD_PARADA'],
+               'TEMPO_PARADA'=>$this->resultado['TEMPO_PARADA'],
+               'OC'=>$this->resultado['OC'],                             
+           );
+       }       
+       $this->desconecta();
+       return $return;       
+    }
+    
+    function sql_query_emp($query){
         $this->conecta();
         $this->query = mysqli_query($this->link,$query);        
         $return = array();        

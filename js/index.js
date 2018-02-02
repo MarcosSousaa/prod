@@ -133,7 +133,8 @@ $(document).ready(function(){
         var newdata = data.split("/").reverse().join("-");        
         if(valid){            
             var obj = new Object();
-            obj.acao = 1;            
+            obj.acao = 1;   
+            obj.empresa = 1;
             obj.data = newdata;           
             obj.extrusora = $("#ext").val();            
             obj.turno = $("#turno").val();            
@@ -219,7 +220,7 @@ $(document).ready(function(){
         });
     }
     
-     function seleciona_empresa(item){             
+    function seleciona_empresa(item){             
         $.ajax({
             type: 'POST',          
             data: {item: item},                      

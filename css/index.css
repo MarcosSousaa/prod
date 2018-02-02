@@ -6,7 +6,7 @@ ul,li{list-style: none;margin: 0;padding:0;}
 /* MENU */
 #left-menu{
     float:left;
-    width:150px;
+    width:120px;
     box-shadow:2px 2px 5px -2px;
     height:100%;
     background:#3498db;
