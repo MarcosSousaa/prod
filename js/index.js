@@ -104,6 +104,9 @@ $(document).ready(function(){
     // INICIALIZANDO SELECT
     $('select').material_select(); 
     
+    $('input').on('focusin','#producao',function(){
+        $(this).mask('999.999');
+    });
     // ======================================================================================
 //
 //    

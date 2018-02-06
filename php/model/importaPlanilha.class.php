@@ -57,24 +57,55 @@ class ImportaPlanilha{
 		return $this->colunas;
 	}
  
-
+        /*
+	 * Método que verifica se o registro CPF da planilha já existe na tabela cliente
+	 * @param $cpf - CPF do cliente que está sendo lido na planilha
+	 * @return Valor Booleano TRUE para duplicado e FALSE caso não 
+	 */
+	private function isRegistroDuplicado($data=null,$extrusora=null,$turno=null,$operador=null){
+		$retorno = false;
+ 
+		try{
+			if(!empty($data) && !empty($extrusora) && !empty($turno) && !empty($operador)):
+				$sql = 'SELECT ID_DADOS FROM D WHERE DATA_PROD = ? AND EXTRUSORA = ? AND TURNO = ? AND OPERADOR = ?';
+				$stm = $this->conexao->prepare($sql);
+				$stm->bindValue(1, $data);
+                                $stm->bindValue(2, $extrusora);
+                                $stm->bindValue(3, $turno);
+                                $stm->bindValue(4, $operador);
+				$stm->execute();
+				$dados = $stm->fetchAll(); 
+				if(!empty($dados)):
+					$retorno = true;                                        
+				else:
+					$retorno = false;
+                                        
+				endif;
+			endif;
+ 
+			
+		}catch(Exception $erro){
+			echo 'Erro: ' . $erro->getMessage();
+			$retorno = false;
+		}
+ 
+		return $retorno;
+	}    
  
 	/*
 	 * Método para ler os dados da planilha e inserir no banco de dados
 	 * @return Valor Inteiro contendo a quantidade de linhas importadas
 	 */
-	public function insertDados(){
- 
+	public function insertDados(){ 
 		try{
                         date_default_timezone_set('America/Sao_Paulo');
                         $date = date('Y-m-d H:i');
                         $emp = 2;
 			$sql = 'INSERT INTO d(EMPRESA_FK,DATA_PROD,EXTRUSORA,TURNO,OPERADOR,PROD_KG,APARA,REFILE,BORRA,ACABAMENTO,QTD_PARADA,TEMPO_PARADA,OC,TIMESTAMP) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-			$stm = $this->conexao->prepare($sql);
-			
-			$linha = null;
-			foreach($this->planilha->rows() as $chave => $valor):
-				if ($chave >= 1 ):		
+			$stm = $this->conexao->prepare($sql);			
+			$linha = 0;
+			foreach($this->planilha->rows() as $chave => $valor):                            
+                            if ($chave >= 1 && !$this->isRegistroDuplicado(trim($valor[0]),($valor[1]),($valor[2]),($valor[3]))):		
 					$empresa  = $emp;
 					$data_prod    = trim($valor[0]);
 					$extrusora     = trim($valor[1]);
@@ -104,11 +135,12 @@ class ImportaPlanilha{
 					$stm->bindValue(12, $tempo_parada);
 					$stm->bindValue(13, $oc);
                                         $stm->bindValue(14, $timestamp);
-					$retorno = $stm->execute();					
+					$retorno = $stm->execute();	
+                                        
 					if($retorno == true) $linha++;
 				 endif;
 			endforeach;
- 
+                        echo $linha;
                     return $linha;
 		}catch(Exception $erro){
 			echo 'Erro: ' . $erro->getMessage();
